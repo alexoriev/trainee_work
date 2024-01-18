@@ -2,8 +2,27 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.Aston_trainee_work" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/primary60</item>
     </style>
 
     <style name="Theme.Aston_trainee_work" parent="Base.Theme.Aston_trainee_work" />
+
+    <style name="headline">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">#191C1D</item>
+    </style>
+
+    <style name="preview">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#191C1D</item>
+    </style>
+
+    <style name="label_text">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="App.Custom.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">@color/primary50</item>
+    </style>
+
 </resources>
