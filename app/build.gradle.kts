@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
 }
 
 android {
@@ -27,11 +28,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = "1.8"
     }
     buildFeatures {
         viewBinding = true
@@ -45,8 +46,20 @@ dependencies {
     implementation("com.google.android.material:material:1.9.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 
+    //Fragments
     implementation("androidx.fragment:fragment-ktx:1.6.2")
+
+    //MVP Moxy
+    implementation("com.github.moxy-community:moxy:2.2.2")
+    implementation("com.github.moxy-community:moxy-androidx:2.2.2")
+    kapt("com.github.moxy-community:moxy-compiler:2.2.2")
+
+    //Cicerone
     implementation("com.github.terrakok:cicerone:7.1")
+
+    //Dagger
+    implementation("com.google.dagger:dagger:2.50")
+    kapt("com.google.dagger:dagger-compiler:2.50")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
