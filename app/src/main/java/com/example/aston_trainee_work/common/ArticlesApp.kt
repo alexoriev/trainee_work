@@ -1,10 +1,10 @@
 package com.example.aston_trainee_work.common
 
 import android.app.Application
-import com.example.aston_trainee_work.dagger.AppComponent
-import com.example.aston_trainee_work.dagger.DaggerAppComponent
+import com.example.aston_trainee_work.di.AppComponent
+import com.example.aston_trainee_work.di.DaggerAppComponent
 
-class NewsApp : Application() {
+class ArticlesApp : Application() {
 
     val appComponent: AppComponent by lazy {
         DaggerAppComponent.builder().build()
@@ -16,6 +16,6 @@ class NewsApp : Application() {
     }
 
     companion object {
-        lateinit var INSTANCE: NewsApp
+        lateinit var INSTANCE: ArticlesApp
     }
 }

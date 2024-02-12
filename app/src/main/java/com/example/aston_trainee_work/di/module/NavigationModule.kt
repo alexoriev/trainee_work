@@ -1,4 +1,4 @@
-package com.example.aston_trainee_work.dagger.module
+package com.example.aston_trainee_work.di.module
 
 import com.github.terrakok.cicerone.Cicerone
 import com.github.terrakok.cicerone.Cicerone.Companion.create

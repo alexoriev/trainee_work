@@ -5,9 +5,9 @@
     android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/headlines_rv"
+        android:id="@+id/articles_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/item_news" />
+        tools:listitem="@layout/item_article" />
 
 </FrameLayout>

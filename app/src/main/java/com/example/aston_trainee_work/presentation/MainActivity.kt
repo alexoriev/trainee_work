@@ -3,7 +3,7 @@ package com.example.aston_trainee_work.presentation
 import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
 import com.example.aston_trainee_work.R
-import com.example.aston_trainee_work.common.NewsApp
+import com.example.aston_trainee_work.common.ArticlesApp
 import com.example.aston_trainee_work.common.Screens.headlines
 import com.github.terrakok.cicerone.Command
 import com.github.terrakok.cicerone.Navigator
@@ -26,7 +26,7 @@ class MainActivity : FragmentActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        NewsApp.INSTANCE.appComponent.inject(this)
+        ArticlesApp.INSTANCE.appComponent.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
