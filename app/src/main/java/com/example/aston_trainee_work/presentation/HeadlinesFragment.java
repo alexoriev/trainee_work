@@ -17,7 +17,7 @@ public class HeadlinesFragment extends Fragment {
 
     private FragmentHeadlinesBinding binding = null;
     private TabsAdapter adapter;
-    int[] imageList = {R.drawable.general, R.drawable.business, R.drawable.health};
+    int[] imageList = {R.drawable.general, R.drawable.business, R.drawable.technology};
 
     public FragmentHeadlinesBinding getBinding() {
         return binding;

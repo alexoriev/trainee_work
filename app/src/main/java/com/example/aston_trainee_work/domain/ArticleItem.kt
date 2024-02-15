@@ -1,7 +1,7 @@
 package com.example.aston_trainee_work.domain
 
 data class ArticleItem(
-    val source: SourceItem,
+    val source: SourceWithImage,
     val author: String?,
     val title: String,
     val description: String?,

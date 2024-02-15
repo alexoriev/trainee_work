@@ -1,4 +1,4 @@
-package com.example.aston_trainee_work.data
+package com.example.aston_trainee_work.data.network
 
 import com.example.aston_trainee_work.data.api.ArticlesApiServiceKOKLIN
 import com.example.aston_trainee_work.domain.ArticleItem
@@ -10,7 +10,8 @@ class ArticlesRepositoryImplKOKLIN @Inject constructor(
     private var apiService: ArticlesApiServiceKOKLIN
 ) : ArticlesRepositoryKOKLIN {
     override suspend fun getHeadlinesNewsList(category: Category): List<ArticleItem> {
-        return apiService.getTopHeadlinesNews(category, 1).body()?.articles?.map { it.fromDto() }
-            ?: emptyList()
+/*        return apiService.getTopHeadlinesNews(category, 1).body()?.articles?.map { it.fromDto(it.source) }
+            ?: emptyList()*/
+        return emptyList()
     }
 }

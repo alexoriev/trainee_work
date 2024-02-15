@@ -1,10 +1,10 @@
 package com.example.aston_trainee_work.data.dto
 
 import com.example.aston_trainee_work.domain.ArticleItem
-import com.example.aston_trainee_work.domain.SourceItem
+import com.example.aston_trainee_work.domain.SourceWithImage
 
 data class Article(
-    val source: SourceItem,
+    val source: Source,
     val author: String?,
     val title: String,
     val description: String?,
@@ -13,5 +13,8 @@ data class Article(
     val publishedAt: String,
     val content: String?,
 ) {
-    fun fromDto() = ArticleItem(source, author, title, description, url, urlToImage, publishedAt, content)
+    fun fromDto(source: SourceWithImage) =
+        ArticleItem(source, author, title,
+                    description, url, urlToImage,
+                    publishedAt, content)
 }

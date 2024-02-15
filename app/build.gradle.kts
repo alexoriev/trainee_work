@@ -71,6 +71,8 @@ dependencies {
 
     //Dagger
     implementation("com.google.dagger:dagger:2.50")
+    implementation("com.google.dagger:dagger-android-support:2.50")
+    kapt("com.google.dagger:dagger-android-processor:2.50")
     kapt("com.google.dagger:dagger-compiler:2.50")
 
     //Retrofit
@@ -86,6 +88,11 @@ dependencies {
 
     //Glide
     implementation("com.github.bumptech.glide:glide:4.16.0")
+
+    //Room
+    implementation("androidx.room:room-runtime:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

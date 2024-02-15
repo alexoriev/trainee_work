@@ -1,7 +1,9 @@
 package com.example.aston_trainee_work.di.module
 
-import com.example.aston_trainee_work.data.ArticlesRepositoryImplJava
-import com.example.aston_trainee_work.data.ArticlesRepositoryImplKOKLIN
+import com.example.aston_trainee_work.data.db.SourceRepository
+import com.example.aston_trainee_work.data.db.SourceRepositoryImpl
+import com.example.aston_trainee_work.data.network.ArticlesRepositoryImplJava
+import com.example.aston_trainee_work.data.network.ArticlesRepositoryImplKOKLIN
 import com.example.aston_trainee_work.domain.ArticlesRepositoryJava
 import com.example.aston_trainee_work.domain.ArticlesRepositoryKOKLIN
 import dagger.Module
@@ -20,6 +22,12 @@ class DomainModule {
     @Provides
     @Singleton
     fun provideArticlesRepository(impl: ArticlesRepositoryImplJava): ArticlesRepositoryJava {
+        return impl
+    }
+
+    @Provides
+    @Singleton
+    fun provideSourceRepository(impl: SourceRepositoryImpl): SourceRepository {
         return impl
     }
 }

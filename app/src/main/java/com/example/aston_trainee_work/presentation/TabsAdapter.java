@@ -21,7 +21,7 @@ public class TabsAdapter extends FragmentStateAdapter {
     private void initData() {
         addData(new GeneralTabFragment(), "General");
         addData(new BusinessTabFragment(), "Business");
-        addData(new HealthTabFragment(), "Health");
+        addData(new TechnologyTabFragment(), "Technology");
     }
 
     private void addData(Fragment tabFragment, String title) {

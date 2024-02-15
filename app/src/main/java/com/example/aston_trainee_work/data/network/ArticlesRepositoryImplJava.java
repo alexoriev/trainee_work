@@ -1,4 +1,4 @@
-package com.example.aston_trainee_work.data;
+package com.example.aston_trainee_work.data.network;
 
 import com.example.aston_trainee_work.data.api.ArticlesApiServiceJava;
 import com.example.aston_trainee_work.data.dto.HeadlinesResponse;

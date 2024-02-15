@@ -10,11 +10,11 @@ import androidx.fragment.app.Fragment;
 
 import com.example.aston_trainee_work.databinding.FragmentBusinessTabBinding;
 
-public class HealthTabFragment extends Fragment {
+public class TechnologyTabFragment extends Fragment {
 
     private FragmentBusinessTabBinding binding;
 
-    public HealthTabFragment() {
+    public TechnologyTabFragment() {
         // Required empty public constructor
     }
 
