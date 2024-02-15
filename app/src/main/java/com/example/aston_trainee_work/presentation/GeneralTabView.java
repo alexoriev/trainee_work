@@ -11,4 +11,6 @@ import moxy.viewstate.strategy.StateStrategyType;
 @StateStrategyType(AddToEndSingleStrategy.class)
 interface GeneralTabView extends MvpView {
     void showArticles(List<ArticleItem> articles);
+    void onFirstPageLoaded(List<ArticleItem> articles);
+    void onNextPageLoaded(List<ArticleItem> articles);
 }

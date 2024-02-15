@@ -16,7 +16,7 @@ public class GetHeadlinesArticlesListUseCase {
     }
 
 
-    public Single<HeadlinesResponse> getHeadlinesArticlesList(Category category) {
-        return articlesRepository.getHeadlinesArticlesList(category);
+    public Single<HeadlinesResponse> getHeadlinesArticlesList(Category category, Integer page) {
+        return articlesRepository.getHeadlinesArticlesList(category, page);
     }
 }
