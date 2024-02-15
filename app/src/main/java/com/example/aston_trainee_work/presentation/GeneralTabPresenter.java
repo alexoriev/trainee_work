@@ -34,7 +34,7 @@ public class GeneralTabPresenter extends MvpPresenter<GeneralTabView> {
     public void onFirstViewAttach() {
         super.onFirstViewAttach();
         Disposable disposable =
-                getHeadlinesArticlesListUseCase.getHeadlinesArticlesList(Category.GENERAL)
+                getHeadlinesArticlesListUseCase.getHeadlinesArticlesList(Category.GENERAL, 1)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(headlinesResponse -> {
@@ -48,6 +48,44 @@ public class GeneralTabPresenter extends MvpPresenter<GeneralTabView> {
                                             })
                                             .collect(toList());
                             getViewState().showArticles(articles);
+                        });
+    }
+
+    public void loadFirstPage() {
+        Disposable disposable =
+                getHeadlinesArticlesListUseCase.getHeadlinesArticlesList(Category.GENERAL, 1)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(headlinesResponse -> {
+                            List<ArticleItem> articles =
+                                    headlinesResponse.getArticles().stream()
+                                            .map(article -> {
+                                                SourceWithImage sourceWithImage =
+                                                        sourceConverter.convert(
+                                                                article.getSource());
+                                                return article.fromDto(sourceWithImage);
+                                            })
+                                            .collect(toList());
+                            getViewState().onFirstPageLoaded(articles);
+                        });
+    }
+
+    public void loadNextPage(Integer page) {
+        Disposable disposable =
+                getHeadlinesArticlesListUseCase.getHeadlinesArticlesList(Category.GENERAL, page)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(headlinesResponse -> {
+                            List<ArticleItem> articles =
+                                    headlinesResponse.getArticles().stream()
+                                            .map(article -> {
+                                                SourceWithImage sourceWithImage =
+                                                        sourceConverter.convert(
+                                                                article.getSource());
+                                                return article.fromDto(sourceWithImage);
+                                            })
+                                            .collect(toList());
+                            getViewState().onNextPageLoaded(articles);
                         });
     }
 }

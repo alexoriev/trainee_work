@@ -19,7 +19,7 @@ public class ArticlesRepositoryImplJava implements ArticlesRepositoryJava {
     }
 
     @Override
-    public Single<HeadlinesResponse> getHeadlinesArticlesList(Category category) {
-        return apiService.getTopHeadlinesNews(category, 1);
+    public Single<HeadlinesResponse> getHeadlinesArticlesList(Category category, Integer page) {
+        return apiService.getTopHeadlinesNews(category, page);
     }
 }
