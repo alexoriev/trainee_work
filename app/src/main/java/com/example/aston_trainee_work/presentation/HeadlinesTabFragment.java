@@ -11,8 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.aston_trainee_work.common.ArticlesApp;
-import com.example.aston_trainee_work.databinding.FragmentGeneralTabBinding;
+import com.example.aston_trainee_work.databinding.FragmentHeadlinesTabBinding;
 import com.example.aston_trainee_work.domain.ArticleItem;
+import com.example.aston_trainee_work.domain.Category;
 import com.example.aston_trainee_work.domain.GetHeadlinesArticlesListUseCase;
 import com.example.aston_trainee_work.utils.SourceConverter;
 
@@ -22,37 +23,38 @@ import moxy.MvpAppCompatFragment;
 import moxy.presenter.InjectPresenter;
 import moxy.presenter.ProvidePresenter;
 
-public class GeneralTabFragment extends MvpAppCompatFragment implements GeneralTabView {
+public class HeadlinesTabFragment extends MvpAppCompatFragment implements HeadlinesTabView {
     private static final int PAGE_START = 1;
     private static final int TOTAL_PAGES = 5;
 
-    private FragmentGeneralTabBinding binding;
+    private final Category category;
+    private FragmentHeadlinesTabBinding binding;
     private ArticlesAdapter adapter;
     private boolean isLoading = false;
     private boolean isLastPage = false;
     private int currentPage = PAGE_START;
 
     @InjectPresenter
-    GeneralTabPresenter generalTabPresenter;
+    HeadlinesTabPresenter headlinesTabPresenter;
 
     @ProvidePresenter
-    GeneralTabPresenter providePresenter() {
+    HeadlinesTabPresenter providePresenter() {
         GetHeadlinesArticlesListUseCase useCase =
                 ((ArticlesApp) getActivity().getApplication()).getAppComponent().getGetHeadlinesArticlesListUseCase();
         SourceConverter sourceConverter =
                 ((ArticlesApp) getActivity().getApplication()).getAppComponent().getSourceConverter();
-        return new GeneralTabPresenter(useCase, sourceConverter);
+        return new HeadlinesTabPresenter(useCase, sourceConverter, category);
     }
 
-    public GeneralTabFragment() {
-        // Required empty public constructor
+    public HeadlinesTabFragment(Category category) {
+        this.category = category;
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentGeneralTabBinding.inflate(inflater, container, false);
+        binding = FragmentHeadlinesTabBinding.inflate(inflater, container, false);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(
                 requireContext(),
                 LinearLayoutManager.VERTICAL,
@@ -66,14 +68,9 @@ public class GeneralTabFragment extends MvpAppCompatFragment implements GeneralT
         binding.articlesRv.setAdapter(adapter);
 
         addOnScrollListener(binding.articlesRv, linearLayoutManager);
-        generalTabPresenter.loadFirstPage();
+        headlinesTabPresenter.loadFirstPage();
 
         return binding.getRoot();
-    }
-
-    @Override
-    public void showArticles(List<ArticleItem> articles) {
-        adapter.setList(articles);
     }
 
     @Override
@@ -106,7 +103,7 @@ public class GeneralTabFragment extends MvpAppCompatFragment implements GeneralT
             protected void loadMoreItems() {
                 isLoading = true;
                 currentPage += 1;
-                generalTabPresenter.loadNextPage(currentPage);
+                headlinesTabPresenter.loadNextPage(currentPage);
             }
 
             @Override

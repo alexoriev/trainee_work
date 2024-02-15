@@ -6,6 +6,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.example.aston_trainee_work.domain.Category;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,9 +21,9 @@ public class TabsAdapter extends FragmentStateAdapter {
     }
 
     private void initData() {
-        addData(new GeneralTabFragment(), "General");
-        addData(new BusinessTabFragment(), "Business");
-        addData(new TechnologyTabFragment(), "Technology");
+        addData(new HeadlinesTabFragment(Category.GENERAL), "General");
+        addData(new HeadlinesTabFragment(Category.BUSINESS), "Business");
+        addData(new HeadlinesTabFragment(Category.TECHNOLOGY), "Technology");
     }
 
     private void addData(Fragment tabFragment, String title) {

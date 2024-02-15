@@ -9,8 +9,7 @@ import moxy.viewstate.strategy.AddToEndSingleStrategy;
 import moxy.viewstate.strategy.StateStrategyType;
 
 @StateStrategyType(AddToEndSingleStrategy.class)
-interface GeneralTabView extends MvpView {
-    void showArticles(List<ArticleItem> articles);
+interface HeadlinesTabView extends MvpView {
     void onFirstPageLoaded(List<ArticleItem> articles);
     void onNextPageLoaded(List<ArticleItem> articles);
 }

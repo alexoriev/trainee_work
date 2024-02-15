@@ -19,20 +19,23 @@ import moxy.InjectViewState;
 import moxy.MvpPresenter;
 
 @InjectViewState
-public class GeneralTabPresenter extends MvpPresenter<GeneralTabView> {
-    GetHeadlinesArticlesListUseCase getHeadlinesArticlesListUseCase;
-    SourceConverter sourceConverter;
+public class HeadlinesTabPresenter extends MvpPresenter<HeadlinesTabView> {
+    private final GetHeadlinesArticlesListUseCase getHeadlinesArticlesListUseCase;
+    private final SourceConverter sourceConverter;
+    private final Category category;
 
     @Inject
-    GeneralTabPresenter(GetHeadlinesArticlesListUseCase getHeadlinesArticlesListUseCase,
-                        SourceConverter sourceConverter) {
+    HeadlinesTabPresenter(GetHeadlinesArticlesListUseCase getHeadlinesArticlesListUseCase,
+                          SourceConverter sourceConverter,
+                          Category category) {
         this.getHeadlinesArticlesListUseCase = getHeadlinesArticlesListUseCase;
         this.sourceConverter = sourceConverter;
+        this.category = category;
     }
 
     public void loadFirstPage() {
         Disposable disposable =
-                getHeadlinesArticlesListUseCase.getHeadlinesArticlesList(Category.GENERAL, 1)
+                getHeadlinesArticlesListUseCase.getHeadlinesArticlesList(category, 1)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(headlinesResponse -> {
@@ -51,7 +54,7 @@ public class GeneralTabPresenter extends MvpPresenter<GeneralTabView> {
 
     public void loadNextPage(Integer page) {
         Disposable disposable =
-                getHeadlinesArticlesListUseCase.getHeadlinesArticlesList(Category.GENERAL, page)
+                getHeadlinesArticlesListUseCase.getHeadlinesArticlesList(category, page)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(headlinesResponse -> {
