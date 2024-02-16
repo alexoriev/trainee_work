@@ -7,6 +7,7 @@ import com.example.aston_trainee_work.domain.GetHeadlinesArticlesListUseCase
 import com.example.aston_trainee_work.presentation.HeadlinesFragment
 import com.example.aston_trainee_work.presentation.MainActivity
 import com.example.aston_trainee_work.utils.SourceConverter
+import com.github.terrakok.cicerone.Router
 import dagger.Component
 import javax.inject.Singleton
 
@@ -15,6 +16,7 @@ import javax.inject.Singleton
 interface AppComponent {
     fun getGetHeadlinesArticlesListUseCase(): GetHeadlinesArticlesListUseCase
     fun getSourceConverter(): SourceConverter
+    fun getRouter(): Router
     fun inject(activity: MainActivity)
     fun inject(fragment: HeadlinesFragment)
 }

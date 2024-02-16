@@ -25,6 +25,11 @@
         <item name="android:textSize">22sp</item>
     </style>
 
+    <style name="article_title_text">
+        <item name="android:textSize">22sp</item>
+        <item name="marginHorizontal">56dp</item>
+    </style>
+
     <style name="App.Custom.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
         <item name="android:color">@color/primary50</item>
     </style>

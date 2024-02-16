@@ -31,13 +31,6 @@ class MainActivity : FragmentActivity() {
         setContentView(R.layout.activity_main)
 
         navigator.applyCommands(arrayOf<Command>(Replace(headlines())))
-
-/*        supportFragmentManager.beginTransaction().run {
-            val fragment = HeadlinesFragment()
-            setReorderingAllowed(true)
-            add(R.id.fragment_container, fragment)
-            commit()
-        }*/
     }
 
     override fun onResumeFragments() {

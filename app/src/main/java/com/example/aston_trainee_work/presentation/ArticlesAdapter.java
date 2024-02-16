@@ -20,9 +20,11 @@ public class ArticlesAdapter extends ListAdapter<ArticleItem, RecyclerView.ViewH
     private static final int LOADING = 0;
     private static final int ITEM = 1;
     private boolean isLoading = false;
+    private OnArticleInteractionListener onArticleInteractionListener;
 
-    public ArticlesAdapter() {
+    public ArticlesAdapter(OnArticleInteractionListener onArticleInteractionListener) {
         super(new ArticleDiffCallback());
+        this.onArticleInteractionListener = onArticleInteractionListener;
     }
 
     public void setList(List<ArticleItem> articles) {
@@ -50,7 +52,7 @@ public class ArticlesAdapter extends ListAdapter<ArticleItem, RecyclerView.ViewH
                     LayoutInflater.from(parent.getContext()),
                     parent,
                     false);
-            viewHolder = new ArticlesViewHolder(itemBinding);
+            viewHolder = new ArticlesViewHolder(itemBinding, onArticleInteractionListener);
         }
         return viewHolder;
 

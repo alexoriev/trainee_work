@@ -9,10 +9,13 @@ import com.example.aston_trainee_work.domain.ArticleItem;
 
 public class ArticlesViewHolder extends RecyclerView.ViewHolder {
     private final ItemArticleBinding binding;
+    private final OnArticleInteractionListener onArticleInteractionListener;
 
-    ArticlesViewHolder(ItemArticleBinding binding) {
+    ArticlesViewHolder(ItemArticleBinding binding,
+                       OnArticleInteractionListener onArticleInteractionListener) {
         super(binding.getRoot());
         this.binding = binding;
+        this.onArticleInteractionListener = onArticleInteractionListener;
     }
 
     public void bind(ArticleItem articleItem) {
@@ -26,11 +29,13 @@ public class ArticlesViewHolder extends RecyclerView.ViewHolder {
             binding.articleSourceIv.setImageResource(R.drawable.source_placeholder);
         }
 
-
         Glide.with(this.itemView.getContext())
                 .load(articleItem.getUrlToImage())
                 .centerCrop()
                 .error(R.drawable.headlines_placeholder)
                 .into(binding.articleHeadlineIv);
+
+        binding.newsItem.setOnClickListener(
+                view -> onArticleInteractionListener.onOpenArticleProfile(articleItem));
     }
 }

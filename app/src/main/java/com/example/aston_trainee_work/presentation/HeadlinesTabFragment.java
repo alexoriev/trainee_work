@@ -11,11 +11,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.aston_trainee_work.common.ArticlesApp;
+import com.example.aston_trainee_work.common.Screens;
 import com.example.aston_trainee_work.databinding.FragmentHeadlinesTabBinding;
 import com.example.aston_trainee_work.domain.ArticleItem;
 import com.example.aston_trainee_work.domain.Category;
 import com.example.aston_trainee_work.domain.GetHeadlinesArticlesListUseCase;
 import com.example.aston_trainee_work.utils.SourceConverter;
+import com.github.terrakok.cicerone.Router;
 
 import java.util.List;
 
@@ -59,7 +61,11 @@ public class HeadlinesTabFragment extends MvpAppCompatFragment implements Headli
                 requireContext(),
                 LinearLayoutManager.VERTICAL,
                 false);
-        adapter = new ArticlesAdapter();
+        adapter = new ArticlesAdapter(articleItem -> {
+            Router router =
+                    ((ArticlesApp) getActivity().getApplication()).getAppComponent().getRouter();
+            router.navigateTo(Screens.INSTANCE.articleProfile(articleItem));
+        });
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
                 binding.articlesRv.getContext(),
                 DividerItemDecoration.VERTICAL);
