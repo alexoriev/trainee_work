@@ -14,16 +14,17 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsingToolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:contentScrim="#009EBD"
-            app:titleTextEllipsize="end"
             app:collapsedTitleGravity="center"
-            app:collapsedTitleTextColor="@color/white"
             app:collapsedTitleTextAppearance="@style/article_title_text"
+            app:collapsedTitleTextColor="@color/white"
+            app:contentScrim="#009EBD"
             app:expandedTitleTextColor="#00000000"
             app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
-            tools:title="AAAAAAAAAAAAA">
+            app:titleTextEllipsize="end"
+            tools:title="AAA">
 
             <ImageView
                 android:id="@+id/articleImage"
@@ -41,19 +42,19 @@
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Dark">
 
                 <ImageView
-                    android:layout_marginStart="20dp"
                     android:id="@+id/backButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/arrow_back_24"/>
+                    android:layout_marginStart="20dp"
+                    android:src="@drawable/arrow_back_24" />
 
                 <ImageView
                     android:id="@+id/saveButton"
-                    android:layout_gravity="end"
-                    android:layout_marginEnd="21dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/bookmark_border_24"/>
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="21dp"
+                    android:src="@drawable/bookmark_border_24" />
 
             </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -64,9 +65,10 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/articleTitleCard"
@@ -111,9 +113,7 @@
                         android:textSize="14sp"
                         app:layout_constraintTop_toBottomOf="@id/articleDateTime"
                         tools:text="@tools:sample/cities" />
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
             </androidx.cardview.widget.CardView>
 
             <TextView
@@ -124,9 +124,16 @@
                 android:padding="16dp"
                 android:textColor="#191C1D"
                 android:textSize="20sp"
-                app:layout_constraintTop_toBottomOf="@id/articleTitleCard"
                 tools:text="@tools:sample/lorem/random" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:id="@+id/contentNull"
+                android:layout_width="240dp"
+                android:layout_height="153dp"
+                android:layout_gravity="center"
+                android:src="@drawable/content_null" />
+
+        </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
