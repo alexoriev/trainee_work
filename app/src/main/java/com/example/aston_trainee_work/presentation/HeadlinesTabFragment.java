@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.aston_trainee_work.common.ArticlesApp;
-import com.example.aston_trainee_work.common.Screens;
 import com.example.aston_trainee_work.databinding.FragmentHeadlinesTabBinding;
 import com.example.aston_trainee_work.domain.ArticleItem;
 import com.example.aston_trainee_work.domain.Category;
@@ -42,10 +41,13 @@ public class HeadlinesTabFragment extends MvpAppCompatFragment implements Headli
     @ProvidePresenter
     HeadlinesTabPresenter providePresenter() {
         GetHeadlinesArticlesListUseCase useCase =
-                ((ArticlesApp) getActivity().getApplication()).getAppComponent().getGetHeadlinesArticlesListUseCase();
+                ((ArticlesApp) getActivity().getApplication()).getAppComponent()
+                        .getGetHeadlinesArticlesListUseCase();
         SourceConverter sourceConverter =
-                ((ArticlesApp) getActivity().getApplication()).getAppComponent().getSourceConverter();
-        return new HeadlinesTabPresenter(useCase, sourceConverter, category);
+                ((ArticlesApp) getActivity().getApplication()).getAppComponent()
+                        .getSourceConverter();
+        Router router = ((ArticlesApp) getActivity().getApplication()).getAppComponent().getRouter();
+        return new HeadlinesTabPresenter(router, useCase, sourceConverter, category);
     }
 
     public HeadlinesTabFragment(Category category) {
@@ -61,11 +63,8 @@ public class HeadlinesTabFragment extends MvpAppCompatFragment implements Headli
                 requireContext(),
                 LinearLayoutManager.VERTICAL,
                 false);
-        adapter = new ArticlesAdapter(articleItem -> {
-            Router router =
-                    ((ArticlesApp) getActivity().getApplication()).getAppComponent().getRouter();
-            router.navigateTo(Screens.INSTANCE.articleProfile(articleItem));
-        });
+        adapter = new ArticlesAdapter(articleItem ->
+                headlinesTabPresenter.goToArticleProfile(articleItem));
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
                 binding.articlesRv.getContext(),
                 DividerItemDecoration.VERTICAL);

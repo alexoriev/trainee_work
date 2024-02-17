@@ -2,11 +2,13 @@ package com.example.aston_trainee_work.presentation;
 
 import static java.util.stream.Collectors.toList;
 
+import com.example.aston_trainee_work.common.Screens;
 import com.example.aston_trainee_work.domain.ArticleItem;
 import com.example.aston_trainee_work.domain.Category;
 import com.example.aston_trainee_work.domain.GetHeadlinesArticlesListUseCase;
 import com.example.aston_trainee_work.domain.SourceWithImage;
 import com.example.aston_trainee_work.utils.SourceConverter;
+import com.github.terrakok.cicerone.Router;
 
 import java.util.List;
 
@@ -20,14 +22,17 @@ import moxy.MvpPresenter;
 
 @InjectViewState
 public class HeadlinesTabPresenter extends MvpPresenter<HeadlinesTabView> {
+    private final Router router;
     private final GetHeadlinesArticlesListUseCase getHeadlinesArticlesListUseCase;
     private final SourceConverter sourceConverter;
     private final Category category;
 
     @Inject
-    HeadlinesTabPresenter(GetHeadlinesArticlesListUseCase getHeadlinesArticlesListUseCase,
+    HeadlinesTabPresenter(Router router,
+                          GetHeadlinesArticlesListUseCase getHeadlinesArticlesListUseCase,
                           SourceConverter sourceConverter,
                           Category category) {
+        this.router = router;
         this.getHeadlinesArticlesListUseCase = getHeadlinesArticlesListUseCase;
         this.sourceConverter = sourceConverter;
         this.category = category;
@@ -69,5 +74,9 @@ public class HeadlinesTabPresenter extends MvpPresenter<HeadlinesTabView> {
                                             .collect(toList());
                             getViewState().onNextPageLoaded(articles);
                         });
+    }
+
+    public void goToArticleProfile(ArticleItem articleItem) {
+        router.navigateTo(Screens.INSTANCE.articleProfile(articleItem));
     }
 }

@@ -46,6 +46,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:src="@drawable/arrow_back_24" />
 
                 <ImageView
@@ -54,6 +56,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:layout_marginEnd="21dp"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:src="@drawable/bookmark_border_24" />
 
             </androidx.appcompat.widget.Toolbar>
@@ -124,7 +128,10 @@
                 android:padding="16dp"
                 android:textColor="#191C1D"
                 android:textSize="20sp"
-                tools:text="@tools:sample/lorem/random" />
+                android:autoLink="web"
+                android:clickable="true"
+                android:focusable="true"
+                tools:text="@tools:sample/lorem" />
 
             <ImageView
                 android:id="@+id/contentNull"

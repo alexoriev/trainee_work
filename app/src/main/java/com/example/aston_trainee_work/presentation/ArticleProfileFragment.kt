@@ -1,6 +1,12 @@
 package com.example.aston_trainee_work.presentation
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,8 +37,10 @@ class ArticleProfileFragment : Fragment() {
             if (articleItem.content.isNullOrBlank()) {
                 contentNull.visibility = View.VISIBLE
             } else {
+                articleContent.movementMethod = LinkMovementMethod.getInstance()
                 contentNull.visibility = View.GONE
-                articleContent.text = articleItem.content
+                val content = getContent(articleItem)
+                articleContent.text = content
             }
 
             Glide.with(this@ArticleProfileFragment)
@@ -51,6 +59,31 @@ class ArticleProfileFragment : Fragment() {
 
         val publishDateTime = fromFormatter.parse(publishedAt)
         return publishDateTime?.let { formatter.format(it) }
+    }
+
+    private fun getContent(articleItem: ArticleItem): SpannableString {
+        if (articleItem.content!!.contains('.')) {
+            val startSpan = articleItem.content.indexOfLast { c -> c == '.' } + 1
+            val spannable = SpannableString(articleItem.content)
+            val clickableSpan = object : ClickableSpan() {
+                override fun onClick(widget: View) {
+                    val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(articleItem.url))
+                    startActivity(browserIntent)
+                }
+            }
+            spannable.setSpan(clickableSpan, startSpan, spannable.length, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
+            return spannable
+        } else {
+            val spannable = SpannableString(articleItem.content)
+            val clickableSpan = object : ClickableSpan() {
+                override fun onClick(widget: View) {
+                    val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(articleItem.url))
+                    startActivity(browserIntent)
+                }
+            }
+            spannable.setSpan(clickableSpan, 0, spannable.length, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
+            return spannable
+        }
     }
 
     companion object {

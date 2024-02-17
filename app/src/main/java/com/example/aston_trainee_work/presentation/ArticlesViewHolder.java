@@ -31,8 +31,8 @@ public class ArticlesViewHolder extends RecyclerView.ViewHolder {
 
         Glide.with(this.itemView.getContext())
                 .load(articleItem.getUrlToImage())
-                .error(R.drawable.no_image_placeholder)
                 .centerCrop()
+                .placeholder(R.drawable.no_image_placeholder)
                 .into(binding.articleHeadlineIv);
 
         binding.newsItem.setOnClickListener(
