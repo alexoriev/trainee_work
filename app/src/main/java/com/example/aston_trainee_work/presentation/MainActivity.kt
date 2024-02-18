@@ -5,17 +5,21 @@ import androidx.fragment.app.FragmentActivity
 import com.example.aston_trainee_work.R
 import com.example.aston_trainee_work.common.ArticlesApp
 import com.example.aston_trainee_work.common.Screens.headlines
+import com.example.aston_trainee_work.common.Screens.saved
+import com.example.aston_trainee_work.common.Screens.sources
+import com.example.aston_trainee_work.databinding.ActivityMainBinding
 import com.github.terrakok.cicerone.Command
 import com.github.terrakok.cicerone.Navigator
 import com.github.terrakok.cicerone.NavigatorHolder
-import com.github.terrakok.cicerone.Replace
 import com.github.terrakok.cicerone.androidx.AppNavigator
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import javax.inject.Inject
 
 class MainActivity : FragmentActivity() {
 
     @Inject
     lateinit var navigatorHolder: NavigatorHolder
+    lateinit var bottomNavigationView: BottomNavigationView
 
     private val navigator: Navigator = object : AppNavigator(this, R.id.fragment_container) {
 
@@ -28,9 +32,22 @@ class MainActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         ArticlesApp.INSTANCE.appComponent.inject(this)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        val binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        navigator.applyCommands(arrayOf<Command>(Replace(headlines())))
+        bottomNavigationView = binding.bottomNavigation
+
+        val router = ArticlesApp.INSTANCE.appComponent.getRouter()
+        router.navigateTo(headlines())
+
+        bottomNavigationView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.headlines -> router.navigateTo(headlines())
+                R.id.saved -> router.navigateTo(saved())
+                R.id.sources -> router.navigateTo(sources())
+            }
+            return@setOnItemSelectedListener true
+        }
     }
 
     override fun onResumeFragments() {

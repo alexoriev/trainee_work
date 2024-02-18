@@ -52,7 +52,7 @@ public class ArticlesAdapter extends ListAdapter<ArticleItem, RecyclerView.ViewH
                     LayoutInflater.from(parent.getContext()),
                     parent,
                     false);
-            viewHolder = new ArticlesViewHolder(itemBinding, onArticleInteractionListener);
+            viewHolder = new ArticleViewHolder(itemBinding, onArticleInteractionListener);
         }
         return viewHolder;
 
@@ -69,7 +69,7 @@ public class ArticlesAdapter extends ListAdapter<ArticleItem, RecyclerView.ViewH
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (getItemViewType(position) == ITEM) {
             ArticleItem article = getItem(position);
-            ((ArticlesViewHolder) holder).bind(article);
+            ((ArticleViewHolder) holder).bind(article);
         }
     }
 

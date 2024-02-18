@@ -7,12 +7,12 @@ import com.example.aston_trainee_work.R;
 import com.example.aston_trainee_work.databinding.ItemArticleBinding;
 import com.example.aston_trainee_work.domain.ArticleItem;
 
-public class ArticlesViewHolder extends RecyclerView.ViewHolder {
+public class ArticleViewHolder extends RecyclerView.ViewHolder {
     private final ItemArticleBinding binding;
     private final OnArticleInteractionListener onArticleInteractionListener;
 
-    ArticlesViewHolder(ItemArticleBinding binding,
-                       OnArticleInteractionListener onArticleInteractionListener) {
+    ArticleViewHolder(ItemArticleBinding binding,
+                      OnArticleInteractionListener onArticleInteractionListener) {
         super(binding.getRoot());
         this.binding = binding;
         this.onArticleInteractionListener = onArticleInteractionListener;
@@ -35,7 +35,7 @@ public class ArticlesViewHolder extends RecyclerView.ViewHolder {
                 .placeholder(R.drawable.no_image_placeholder)
                 .into(binding.articleHeadlineIv);
 
-        binding.newsItem.setOnClickListener(
+        binding.articleItem.setOnClickListener(
                 view -> onArticleInteractionListener.onOpenArticleProfile(articleItem));
     }
 }

@@ -13,18 +13,21 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.aston_trainee_work.R
+import com.example.aston_trainee_work.common.ArticlesApp
 import com.example.aston_trainee_work.databinding.FragmentArticleProfileBinding
 import com.example.aston_trainee_work.domain.ArticleItem
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-
 class ArticleProfileFragment : Fragment() {
+    private lateinit var viewModel: ArticleProfileViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        viewModel = ArticleProfileViewModel(
+            (activity?.application as ArticlesApp).appComponent.getRouter())
         val articleItem = arguments?.getSerializable("article") as ArticleItem
 
         val binding = FragmentArticleProfileBinding.inflate(inflater, container, false)
@@ -48,6 +51,10 @@ class ArticleProfileFragment : Fragment() {
                 .centerCrop()
                 .error(R.drawable.no_image_placeholder)
                 .into(articleImage)
+
+            backButton.setOnClickListener {
+                viewModel.onBackPressed()
+            }
         }
 
         return binding.root

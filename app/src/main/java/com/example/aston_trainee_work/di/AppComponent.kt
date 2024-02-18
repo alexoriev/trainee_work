@@ -4,6 +4,7 @@ import com.example.aston_trainee_work.di.module.DataModule
 import com.example.aston_trainee_work.di.module.NavigationModule
 import com.example.aston_trainee_work.di.module.DomainModule
 import com.example.aston_trainee_work.domain.GetHeadlinesArticlesListUseCase
+import com.example.aston_trainee_work.presentation.ArticleProfileViewModel
 import com.example.aston_trainee_work.presentation.HeadlinesFragment
 import com.example.aston_trainee_work.presentation.MainActivity
 import com.example.aston_trainee_work.utils.SourceConverter
@@ -19,4 +20,5 @@ interface AppComponent {
     fun getRouter(): Router
     fun inject(activity: MainActivity)
     fun inject(fragment: HeadlinesFragment)
+    fun inject(articleProfileViewModel: ArticleProfileViewModel)
 }
