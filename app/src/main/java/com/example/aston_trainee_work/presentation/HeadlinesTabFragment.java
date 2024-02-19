@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.aston_trainee_work.common.ArticlesApp;
-import com.example.aston_trainee_work.databinding.FragmentHeadlinesTabBinding;
+import com.example.aston_trainee_work.databinding.FragmentArticlesListBinding;
 import com.example.aston_trainee_work.domain.ArticleItem;
 import com.example.aston_trainee_work.domain.Category;
 import com.example.aston_trainee_work.domain.GetHeadlinesArticlesListUseCase;
@@ -29,7 +29,7 @@ public class HeadlinesTabFragment extends MvpAppCompatFragment implements Headli
     private static final int TOTAL_PAGES = 5;
 
     private final Category category;
-    private FragmentHeadlinesTabBinding binding;
+    private FragmentArticlesListBinding binding;
     private ArticlesAdapter adapter;
     private boolean isLoading = false;
     private boolean isLastPage = false;
@@ -58,7 +58,7 @@ public class HeadlinesTabFragment extends MvpAppCompatFragment implements Headli
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentHeadlinesTabBinding.inflate(inflater, container, false);
+        binding = FragmentArticlesListBinding.inflate(inflater, container, false);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(
                 requireContext(),
                 LinearLayoutManager.VERTICAL,

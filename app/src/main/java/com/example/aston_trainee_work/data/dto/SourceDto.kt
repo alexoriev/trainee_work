@@ -1,6 +1,6 @@
 package com.example.aston_trainee_work.data.dto
 
-data class Source(
+data class SourceDto(
     val id: String,
     val category: String,
     val country: String,

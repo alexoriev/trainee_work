@@ -1,7 +1,7 @@
 package com.example.aston_trainee_work.data.network;
 
 import com.example.aston_trainee_work.data.api.HeadlinesArticlesApiService;
-import com.example.aston_trainee_work.data.dto.HeadlinesResponse;
+import com.example.aston_trainee_work.data.dto.ArticlesListResponse;
 import com.example.aston_trainee_work.domain.HeadlinesArticlesRepository;
 import com.example.aston_trainee_work.domain.Category;
 
@@ -19,7 +19,7 @@ public class HeadlinesArticlesRepositoryImpl implements HeadlinesArticlesReposit
     }
 
     @Override
-    public Single<HeadlinesResponse> getHeadlinesArticlesList(Category category, Integer page) {
+    public Single<ArticlesListResponse> getHeadlinesArticlesList(Category category, Integer page) {
         return apiService.getTopHeadlinesNews(category, page);
     }
 }

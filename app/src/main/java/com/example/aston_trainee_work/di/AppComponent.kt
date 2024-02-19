@@ -4,6 +4,7 @@ import com.example.aston_trainee_work.di.module.DataModule
 import com.example.aston_trainee_work.di.module.NavigationModule
 import com.example.aston_trainee_work.di.module.DomainModule
 import com.example.aston_trainee_work.domain.GetHeadlinesArticlesListUseCase
+import com.example.aston_trainee_work.domain.GetSourceArticlesListUseCase
 import com.example.aston_trainee_work.domain.GetSourcesListUseCase
 import com.example.aston_trainee_work.presentation.ArticleProfileViewModel
 import com.example.aston_trainee_work.presentation.HeadlinesFragment
@@ -18,6 +19,7 @@ import javax.inject.Singleton
 interface AppComponent {
     fun getGetHeadlinesArticlesListUseCase(): GetHeadlinesArticlesListUseCase
     fun getGetSourcesListUseCase(): GetSourcesListUseCase
+    fun getGetSourceArticlesListUseCase(): GetSourceArticlesListUseCase
     fun getSourceConverter(): SourceConverter
     fun getRouter(): Router
     fun inject(activity: MainActivity)

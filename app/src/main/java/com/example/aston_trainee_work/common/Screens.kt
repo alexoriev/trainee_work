@@ -5,6 +5,7 @@ import com.example.aston_trainee_work.domain.SourceItem
 import com.example.aston_trainee_work.presentation.ArticleProfileFragment
 import com.example.aston_trainee_work.presentation.HeadlinesFragment
 import com.example.aston_trainee_work.presentation.SavedFragment
+import com.example.aston_trainee_work.presentation.SourceArticlesFragment
 import com.example.aston_trainee_work.presentation.SourcesFragment
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 
@@ -18,6 +19,6 @@ object Screens {
     }
 
     fun sourceArticles(sourceItem: SourceItem) = FragmentScreen {
-        TODO()
+        SourceArticlesFragment.getNewInstance(sourceItem)
     }
 }

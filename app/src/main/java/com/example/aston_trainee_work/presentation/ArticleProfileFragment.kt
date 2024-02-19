@@ -27,12 +27,11 @@ class ArticleProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         (activity as MainActivity).hideActionBar()
-
-        viewModel = ArticleProfileViewModel(
-            (activity?.application as ArticlesApp).appComponent.getRouter())
-        val articleItem = arguments?.getSerializable("article") as ArticleItem
-
         val binding = FragmentArticleProfileBinding.inflate(inflater, container, false)
+        val articleItem = arguments?.getSerializable("article") as ArticleItem
+        viewModel = ArticleProfileViewModel(
+            (activity?.application as ArticlesApp).appComponent.getRouter()
+        )
 
         binding.apply {
             collapsingToolbar.title = articleItem.title
@@ -80,7 +79,12 @@ class ArticleProfileFragment : Fragment() {
                     startActivity(browserIntent)
                 }
             }
-            spannable.setSpan(clickableSpan, startSpan, spannable.length, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
+            spannable.setSpan(
+                clickableSpan,
+                startSpan,
+                spannable.length,
+                Spannable.SPAN_INCLUSIVE_EXCLUSIVE
+            )
             return spannable
         } else {
             val spannable = SpannableString(articleItem.content)
@@ -90,7 +94,12 @@ class ArticleProfileFragment : Fragment() {
                     startActivity(browserIntent)
                 }
             }
-            spannable.setSpan(clickableSpan, 0, spannable.length, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
+            spannable.setSpan(
+                clickableSpan,
+                0,
+                spannable.length,
+                Spannable.SPAN_INCLUSIVE_EXCLUSIVE
+            )
             return spannable
         }
     }

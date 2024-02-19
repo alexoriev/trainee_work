@@ -1,7 +1,7 @@
 package com.example.aston_trainee_work.data.dto
 
-data class HeadlinesResponse(
-    val articles: List<Article>,
+data class ArticlesListResponse(
+    val articles: List<ArticleDto>,
     val status: String,
     val totalResults: Int
 )

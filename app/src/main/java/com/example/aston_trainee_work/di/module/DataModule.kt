@@ -7,6 +7,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.aston_trainee_work.BuildConfig
 import com.example.aston_trainee_work.R
 import com.example.aston_trainee_work.data.api.HeadlinesArticlesApiService
+import com.example.aston_trainee_work.data.api.SourceArticlesApiService
 import com.example.aston_trainee_work.data.api.SourcesApiService
 import com.example.aston_trainee_work.data.db.AppDb
 import com.example.aston_trainee_work.data.db.SourceDao
@@ -51,6 +52,12 @@ class DataModule(val app: Application) {
 
     @Provides
     @Singleton
+    fun provideSourceArticlesApiService(
+        retrofit: Retrofit,
+    ): SourceArticlesApiService = retrofit.create()
+
+    @Provides
+    @Singleton
     fun provideSourceConverter(
         sourceImageRepository: SourceImageRepository
     ): SourceConverter {
@@ -79,6 +86,7 @@ class DataModule(val app: Application) {
                             SourceImageEntity("ars-technica", R.drawable.ars),
                             SourceImageEntity("associated-press", R.drawable.ap),
                             SourceImageEntity("bbc-news", R.drawable.bbc),
+                            SourceImageEntity("bbc-sport", R.drawable.bbc),
                             SourceImageEntity("bild", R.drawable.bild),
                             SourceImageEntity("bloomberg", R.drawable.bloomberg),
                             SourceImageEntity("cnn", R.drawable.cnn),
@@ -89,6 +97,17 @@ class DataModule(val app: Application) {
                             SourceImageEntity("hacker-news", R.drawable.hacker_news),
                             SourceImageEntity("il-sole-24-ore", R.drawable.il24),
                             SourceImageEntity("google-news", R.drawable.google_news),
+                            SourceImageEntity("google-news-ar", R.drawable.google_news),
+                            SourceImageEntity("google-news-au", R.drawable.google_news),
+                            SourceImageEntity("google-news-br", R.drawable.google_news),
+                            SourceImageEntity("google-news-ca", R.drawable.google_news),
+                            SourceImageEntity("google-news-fr", R.drawable.google_news),
+                            SourceImageEntity("google-news-in", R.drawable.google_news),
+                            SourceImageEntity("google-news-is", R.drawable.google_news),
+                            SourceImageEntity("google-news-it", R.drawable.google_news),
+                            SourceImageEntity("google-news-ru", R.drawable.google_news),
+                            SourceImageEntity("google-news-sa", R.drawable.google_news),
+                            SourceImageEntity("google-news-uk", R.drawable.google_news),
                             SourceImageEntity("t3n", R.drawable.t3n),
                             SourceImageEntity("techcrunch", R.drawable.techcrunch),
                             SourceImageEntity("techcrunch-cn", R.drawable.techcrunch),

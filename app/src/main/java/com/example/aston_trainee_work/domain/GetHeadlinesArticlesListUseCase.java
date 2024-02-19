@@ -1,6 +1,6 @@
 package com.example.aston_trainee_work.domain;
 
-import com.example.aston_trainee_work.data.dto.HeadlinesResponse;
+import com.example.aston_trainee_work.data.dto.ArticlesListResponse;
 
 import javax.inject.Inject;
 
@@ -15,7 +15,7 @@ public class GetHeadlinesArticlesListUseCase {
         this.articlesRepository = articlesRepository;
     }
 
-    public Single<HeadlinesResponse> getHeadlinesArticlesList(Category category, Integer page) {
+    public Single<ArticlesListResponse> getHeadlinesArticlesList(Category category, Integer page) {
         return articlesRepository.getHeadlinesArticlesList(category, page);
     }
 }

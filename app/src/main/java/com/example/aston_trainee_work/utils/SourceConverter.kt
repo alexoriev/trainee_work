@@ -2,7 +2,7 @@ package com.example.aston_trainee_work.utils
 
 import com.example.aston_trainee_work.data.db.SourceImageRepository
 import com.example.aston_trainee_work.data.dto.ArticleSourceDto
-import com.example.aston_trainee_work.data.dto.Source
+import com.example.aston_trainee_work.data.dto.SourceDto
 import com.example.aston_trainee_work.domain.ArticleSource
 import com.example.aston_trainee_work.domain.SourceItem
 import javax.inject.Inject
@@ -19,8 +19,8 @@ class SourceConverter @Inject constructor(
         }
     }
 
-    fun convertSource(source: Source): SourceItem {
-        val imageSourceId = sourceImageRepository.getImageSourceById(source.id)
-        return SourceItem(source.id, source.name, source.country, source.category, imageSourceId)
+    fun convertSource(sourceDto: SourceDto): SourceItem {
+        val imageSourceId = sourceImageRepository.getImageSourceById(sourceDto.id)
+        return SourceItem(sourceDto.id, sourceDto.name, sourceDto.country, sourceDto.category, imageSourceId)
     }
 }
