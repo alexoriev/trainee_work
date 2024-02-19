@@ -6,10 +6,13 @@ import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.aston_trainee_work.BuildConfig
 import com.example.aston_trainee_work.R
-import com.example.aston_trainee_work.data.api.ArticlesApiServiceJava
+import com.example.aston_trainee_work.data.api.HeadlinesArticlesApiService
+import com.example.aston_trainee_work.data.api.SourcesApiService
 import com.example.aston_trainee_work.data.db.AppDb
 import com.example.aston_trainee_work.data.db.SourceDao
-import com.example.aston_trainee_work.data.db.SourceEntity
+import com.example.aston_trainee_work.data.db.SourceImageEntity
+import com.example.aston_trainee_work.data.db.SourceImageRepository
+import com.example.aston_trainee_work.utils.SourceConverter
 import dagger.Module
 import dagger.Provides
 import kotlinx.coroutines.CoroutineScope
@@ -38,7 +41,21 @@ class DataModule(val app: Application) {
     @Singleton
     fun provideArticlesApiService(
         retrofit: Retrofit,
-    ): ArticlesApiServiceJava = retrofit.create()
+    ): HeadlinesArticlesApiService = retrofit.create()
+
+    @Provides
+    @Singleton
+    fun provideSourcesApiService(
+        retrofit: Retrofit,
+    ): SourcesApiService = retrofit.create()
+
+    @Provides
+    @Singleton
+    fun provideSourceConverter(
+        sourceImageRepository: SourceImageRepository
+    ): SourceConverter {
+        return SourceConverter(sourceImageRepository)
+    }
 
     @Singleton
     @Provides
@@ -54,34 +71,34 @@ class DataModule(val app: Application) {
                     applicationScope.launch(Dispatchers.IO) {
                         val sourceDao = sourceProvider.get()
                         sourceDao.insert(listOf(
-                            SourceEntity("abc-news", "ABC News", R.drawable.abc),
-                            SourceEntity("abc-news-au", "ABC News (AU)", R.drawable.abc),
-                            SourceEntity("aftenposten", "Aftenposten", R.drawable.aftenposten),
-                            SourceEntity("al-jazeera-english", "Al Jazeera English", R.drawable.aljazeera),
-                            SourceEntity("ansa", "ANSA.IT", R.drawable.ansa),
-                            SourceEntity("ars-technica", "Ars Technica", R.drawable.ars),
-                            SourceEntity("associated-press", "Associated Press", R.drawable.ap),
-                            SourceEntity("bbc-news", "BBC News", R.drawable.bbc),
-                            SourceEntity("bild", "Bild", R.drawable.bild),
-                            SourceEntity("bloomberg", "Bloomberg", R.drawable.bloomberg),
-                            SourceEntity("cnn", "CNN", R.drawable.cnn),
-                            SourceEntity("cnn-es", "CNN Spanish", R.drawable.cnn),
-                            SourceEntity("engadget", "Engadget", R.drawable.engadget),
-                            SourceEntity("financial-post", "CNN", R.drawable.fp),
-                            SourceEntity("fox-news", "Financial Post", R.drawable.fox),
-                            SourceEntity("hacker-news", "Hacker News", R.drawable.hacker_news),
-                            SourceEntity("il-sole-24-ore", "Il Sole 24 Ore", R.drawable.il24),
-                            SourceEntity("google-news", "Google News", R.drawable.google_news),
-                            SourceEntity("t3n", "T3n", R.drawable.t3n),
-                            SourceEntity("techcrunch", "TechCrunch", R.drawable.techcrunch),
-                            SourceEntity("techcrunch-cn", "TechCrunch (CN)", R.drawable.techcrunch),
-                            SourceEntity("techradar", "TechRadar", R.drawable.techradar),
-                            SourceEntity("the-next-web", "The Next Web", R.drawable.tnw),
-                            SourceEntity("the-verge", "The Verge", R.drawable.theverge),
-                            SourceEntity("the-wall-street-journal", "The Wall Street Journal", R.drawable.twj),
-                            SourceEntity("the-washington-times","The Washington Times", R.drawable.times),
-                            SourceEntity("wired", "Wired", R.drawable.wired),
-                            SourceEntity("wired-de", "Wired.de", R.drawable.wired)
+                            SourceImageEntity("abc-news", R.drawable.abc),
+                            SourceImageEntity("abc-news-au", R.drawable.abc),
+                            SourceImageEntity("aftenposten", R.drawable.aftenposten),
+                            SourceImageEntity("al-jazeera-english", R.drawable.aljazeera),
+                            SourceImageEntity("ansa", R.drawable.ansa),
+                            SourceImageEntity("ars-technica", R.drawable.ars),
+                            SourceImageEntity("associated-press", R.drawable.ap),
+                            SourceImageEntity("bbc-news", R.drawable.bbc),
+                            SourceImageEntity("bild", R.drawable.bild),
+                            SourceImageEntity("bloomberg", R.drawable.bloomberg),
+                            SourceImageEntity("cnn", R.drawable.cnn),
+                            SourceImageEntity("cnn-es", R.drawable.cnn),
+                            SourceImageEntity("engadget", R.drawable.engadget),
+                            SourceImageEntity("financial-post", R.drawable.fp),
+                            SourceImageEntity("fox-news", R.drawable.fox),
+                            SourceImageEntity("hacker-news", R.drawable.hacker_news),
+                            SourceImageEntity("il-sole-24-ore", R.drawable.il24),
+                            SourceImageEntity("google-news", R.drawable.google_news),
+                            SourceImageEntity("t3n", R.drawable.t3n),
+                            SourceImageEntity("techcrunch", R.drawable.techcrunch),
+                            SourceImageEntity("techcrunch-cn", R.drawable.techcrunch),
+                            SourceImageEntity("techradar", R.drawable.techradar),
+                            SourceImageEntity("the-next-web", R.drawable.tnw),
+                            SourceImageEntity("the-verge", R.drawable.theverge),
+                            SourceImageEntity("the-wall-street-journal", R.drawable.twj),
+                            SourceImageEntity("the-washington-times", R.drawable.times),
+                            SourceImageEntity("wired", R.drawable.wired),
+                            SourceImageEntity("wired-de", R.drawable.wired)
                         ))
                     }
                 }

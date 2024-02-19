@@ -1,19 +1,26 @@
 package com.example.aston_trainee_work.utils
 
-import com.example.aston_trainee_work.data.db.SourceRepository
+import com.example.aston_trainee_work.data.db.SourceImageRepository
+import com.example.aston_trainee_work.data.dto.ArticleSourceDto
 import com.example.aston_trainee_work.data.dto.Source
-import com.example.aston_trainee_work.domain.SourceWithImage
+import com.example.aston_trainee_work.domain.ArticleSource
+import com.example.aston_trainee_work.domain.SourceItem
 import javax.inject.Inject
 
 class SourceConverter @Inject constructor(
-    private val sourceRepository: SourceRepository
+    private val sourceImageRepository: SourceImageRepository
 ) {
-    fun convert(source: Source): SourceWithImage {
-        return if (source.id != null) {
-            val imageSourceId = sourceRepository.getImageSourceById(source.id)
-            SourceWithImage(source.id, source.name, imageSourceId)
+    fun convertArticleSource(articleSource: ArticleSourceDto): ArticleSource {
+        return if (articleSource.id != null) {
+            val imageSourceId = sourceImageRepository.getImageSourceById(articleSource.id)
+           ArticleSource(articleSource.id, articleSource.name, imageSourceId)
         } else {
-            SourceWithImage(source.id, source.name, null)
+            ArticleSource(articleSource.id, articleSource.name, null)
         }
+    }
+
+    fun convertSource(source: Source): SourceItem {
+        val imageSourceId = sourceImageRepository.getImageSourceById(source.id)
+        return SourceItem(source.id, source.name, source.country, source.category, imageSourceId)
     }
 }

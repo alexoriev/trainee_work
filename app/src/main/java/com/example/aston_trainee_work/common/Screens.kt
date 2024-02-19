@@ -1,6 +1,7 @@
 package com.example.aston_trainee_work.common
 
 import com.example.aston_trainee_work.domain.ArticleItem
+import com.example.aston_trainee_work.domain.SourceItem
 import com.example.aston_trainee_work.presentation.ArticleProfileFragment
 import com.example.aston_trainee_work.presentation.HeadlinesFragment
 import com.example.aston_trainee_work.presentation.SavedFragment
@@ -14,5 +15,9 @@ object Screens {
 
     fun articleProfile(articleItem: ArticleItem) = FragmentScreen {
         ArticleProfileFragment.getNewInstance(articleItem)
+    }
+
+    fun sourceArticles(sourceItem: SourceItem) = FragmentScreen {
+        TODO()
     }
 }

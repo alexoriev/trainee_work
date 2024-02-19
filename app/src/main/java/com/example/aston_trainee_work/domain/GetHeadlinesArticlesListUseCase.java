@@ -8,13 +8,12 @@ import io.reactivex.rxjava3.core.Single;
 
 public class GetHeadlinesArticlesListUseCase {
 
-    ArticlesRepositoryJava articlesRepository;
+    HeadlinesArticlesRepository articlesRepository;
 
     @Inject
-    GetHeadlinesArticlesListUseCase(ArticlesRepositoryJava articlesRepository) {
+    GetHeadlinesArticlesListUseCase(HeadlinesArticlesRepository articlesRepository) {
         this.articlesRepository = articlesRepository;
     }
-
 
     public Single<HeadlinesResponse> getHeadlinesArticlesList(Category category, Integer page) {
         return articlesRepository.getHeadlinesArticlesList(category, page);

@@ -4,9 +4,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class SourceEntity(
+data class SourceImageEntity(
     @PrimaryKey
     val id: String,
-    val name: String,
-    val imageSourceId: Int
+    val imageResourceId: Int
 )

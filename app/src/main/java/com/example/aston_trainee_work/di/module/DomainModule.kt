@@ -1,11 +1,11 @@
 package com.example.aston_trainee_work.di.module
 
-import com.example.aston_trainee_work.data.db.SourceRepository
-import com.example.aston_trainee_work.data.db.SourceRepositoryImpl
-import com.example.aston_trainee_work.data.network.ArticlesRepositoryImplJava
-import com.example.aston_trainee_work.data.network.ArticlesRepositoryImplKOKLIN
-import com.example.aston_trainee_work.domain.ArticlesRepositoryJava
-import com.example.aston_trainee_work.domain.ArticlesRepositoryKOKLIN
+import com.example.aston_trainee_work.data.db.SourceImageRepository
+import com.example.aston_trainee_work.data.db.SourceImageRepositoryImpl
+import com.example.aston_trainee_work.data.network.HeadlinesArticlesRepositoryImpl
+import com.example.aston_trainee_work.data.network.SourcesRepositoryImpl
+import com.example.aston_trainee_work.domain.HeadlinesArticlesRepository
+import com.example.aston_trainee_work.domain.SourcesRepository
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -15,19 +15,19 @@ class DomainModule {
 
     @Provides
     @Singleton
-    fun provideArticlesRepositoryKoklin(impl: ArticlesRepositoryImplKOKLIN): ArticlesRepositoryKOKLIN {
+    fun provideSourcesRepository(impl: SourcesRepositoryImpl): SourcesRepository {
         return impl
     }
 
     @Provides
     @Singleton
-    fun provideArticlesRepository(impl: ArticlesRepositoryImplJava): ArticlesRepositoryJava {
+    fun provideArticlesRepository(impl: HeadlinesArticlesRepositoryImpl): HeadlinesArticlesRepository {
         return impl
     }
 
     @Provides
     @Singleton
-    fun provideSourceRepository(impl: SourceRepositoryImpl): SourceRepository {
+    fun provideSourceImageRepository(impl: SourceImageRepositoryImpl): SourceImageRepository {
         return impl
     }
 }

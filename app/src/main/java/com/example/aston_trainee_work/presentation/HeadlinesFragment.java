@@ -27,6 +27,9 @@ public class HeadlinesFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
+        ((MainActivity)getActivity()).setActionBarTitle("News APP");
+        ((MainActivity)getActivity()).showActionBar();
+
         binding = FragmentHeadlinesBinding.inflate(inflater, container, false);
 
         adapter = new TabsAdapter(requireActivity().getSupportFragmentManager(), getLifecycle());

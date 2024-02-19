@@ -1,20 +1,20 @@
 package com.example.aston_trainee_work.data.network;
 
-import com.example.aston_trainee_work.data.api.ArticlesApiServiceJava;
+import com.example.aston_trainee_work.data.api.HeadlinesArticlesApiService;
 import com.example.aston_trainee_work.data.dto.HeadlinesResponse;
-import com.example.aston_trainee_work.domain.ArticlesRepositoryJava;
+import com.example.aston_trainee_work.domain.HeadlinesArticlesRepository;
 import com.example.aston_trainee_work.domain.Category;
 
 import javax.inject.Inject;
 
 import io.reactivex.rxjava3.core.Single;
 
-public class ArticlesRepositoryImplJava implements ArticlesRepositoryJava {
+public class HeadlinesArticlesRepositoryImpl implements HeadlinesArticlesRepository {
 
-    ArticlesApiServiceJava apiService;
+    HeadlinesArticlesApiService apiService;
 
     @Inject
-    public ArticlesRepositoryImplJava(ArticlesApiServiceJava apiService) {
+    public HeadlinesArticlesRepositoryImpl(HeadlinesArticlesApiService apiService) {
         this.apiService = apiService;
     }
 

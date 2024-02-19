@@ -6,7 +6,7 @@ import com.example.aston_trainee_work.common.Screens;
 import com.example.aston_trainee_work.domain.ArticleItem;
 import com.example.aston_trainee_work.domain.Category;
 import com.example.aston_trainee_work.domain.GetHeadlinesArticlesListUseCase;
-import com.example.aston_trainee_work.domain.SourceWithImage;
+import com.example.aston_trainee_work.domain.ArticleSource;
 import com.example.aston_trainee_work.utils.SourceConverter;
 import com.github.terrakok.cicerone.Router;
 
@@ -47,10 +47,10 @@ public class HeadlinesTabPresenter extends MvpPresenter<HeadlinesTabView> {
                             List<ArticleItem> articles =
                                     headlinesResponse.getArticles().stream()
                                             .map(article -> {
-                                                SourceWithImage sourceWithImage =
-                                                        sourceConverter.convert(
+                                                ArticleSource articleSource =
+                                                        sourceConverter.convertArticleSource(
                                                                 article.getSource());
-                                                return article.fromDto(sourceWithImage);
+                                                return article.fromDto(articleSource);
                                             })
                                             .collect(toList());
                             getViewState().onFirstPageLoaded(articles);
@@ -66,10 +66,10 @@ public class HeadlinesTabPresenter extends MvpPresenter<HeadlinesTabView> {
                             List<ArticleItem> articles =
                                     headlinesResponse.getArticles().stream()
                                             .map(article -> {
-                                                SourceWithImage sourceWithImage =
-                                                        sourceConverter.convert(
+                                                ArticleSource articleSource =
+                                                        sourceConverter.convertArticleSource(
                                                                 article.getSource());
-                                                return article.fromDto(sourceWithImage);
+                                                return article.fromDto(articleSource);
                                             })
                                             .collect(toList());
                             getViewState().onNextPageLoaded(articles);

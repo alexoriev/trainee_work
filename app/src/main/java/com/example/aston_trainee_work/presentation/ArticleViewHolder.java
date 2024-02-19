@@ -22,9 +22,9 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder {
         binding.articleHeadlineTv.setText(articleItem.getTitle());
         binding.articleSourceTv.setText(articleItem.getSource().getName());
 
-        Integer imageSourceId = articleItem.getSource().getImageSourceId();
+        Integer imageSourceId = articleItem.getSource().getImageResourceId();
         if (imageSourceId != null) {
-            binding.articleSourceIv.setImageResource(articleItem.getSource().getImageSourceId());
+            binding.articleSourceIv.setImageResource(articleItem.getSource().getImageResourceId());
         } else {
             binding.articleSourceIv.setImageResource(R.drawable.source_placeholder);
         }

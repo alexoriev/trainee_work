@@ -4,6 +4,6 @@ import com.example.aston_trainee_work.data.dto.HeadlinesResponse;
 
 import io.reactivex.rxjava3.core.Single;
 
-public interface ArticlesRepositoryJava {
+public interface HeadlinesArticlesRepository {
     Single<HeadlinesResponse> getHeadlinesArticlesList(Category category, Integer page);
 }

@@ -1,5 +1,5 @@
 package com.example.aston_trainee_work.data.db
 
-interface SourceRepository {
+interface SourceImageRepository {
     fun getImageSourceById(id: String): Int?
 }

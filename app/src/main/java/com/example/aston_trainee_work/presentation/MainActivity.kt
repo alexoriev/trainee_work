@@ -1,6 +1,7 @@
 package com.example.aston_trainee_work.presentation
 
 import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.FragmentActivity
 import com.example.aston_trainee_work.R
 import com.example.aston_trainee_work.common.ArticlesApp
@@ -20,6 +21,7 @@ class MainActivity : FragmentActivity() {
     @Inject
     lateinit var navigatorHolder: NavigatorHolder
     lateinit var bottomNavigationView: BottomNavigationView
+    private lateinit var binding: ActivityMainBinding
 
     private val navigator: Navigator = object : AppNavigator(this, R.id.fragment_container) {
 
@@ -32,7 +34,7 @@ class MainActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         ArticlesApp.INSTANCE.appComponent.inject(this)
         super.onCreate(savedInstanceState)
-        val binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         bottomNavigationView = binding.bottomNavigation
@@ -58,5 +60,17 @@ class MainActivity : FragmentActivity() {
     override fun onPause() {
         navigatorHolder.removeNavigator()
         super.onPause()
+    }
+
+    fun setActionBarTitle(title: String) {
+        binding.topAppBar.title = title
+    }
+
+    fun hideActionBar() {
+        binding.appBarLayout.visibility = View.GONE
+    }
+
+    fun showActionBar() {
+        binding.appBarLayout.visibility = View.VISIBLE
     }
 }

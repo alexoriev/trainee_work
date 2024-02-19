@@ -26,6 +26,8 @@ class ArticleProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        (activity as MainActivity).hideActionBar()
+
         viewModel = ArticleProfileViewModel(
             (activity?.application as ArticlesApp).appComponent.getRouter())
         val articleItem = arguments?.getSerializable("article") as ArticleItem

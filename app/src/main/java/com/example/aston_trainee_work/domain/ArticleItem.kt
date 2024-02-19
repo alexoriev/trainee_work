@@ -3,7 +3,7 @@ package com.example.aston_trainee_work.domain
 import java.io.Serializable
 
 data class ArticleItem(
-    val source: SourceWithImage,
+    val source: ArticleSource,
     val author: String?,
     val title: String,
     val description: String?,

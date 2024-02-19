@@ -7,12 +7,12 @@ import androidx.room.Query
 @Dao
 interface SourceDao {
 
-    @Query("SELECT imageSourceId FROM SourceEntity WHERE id = :id")
+    @Query("SELECT imageResourceId FROM SourceImageEntity WHERE id = :id")
     fun getImageSourceId(id: String): List<Int>
 
     @Insert
-    fun insert(source: SourceEntity)
+    fun insert(source: SourceImageEntity)
 
     @Insert
-    fun insert(sourceList: List<SourceEntity>)
+    fun insert(sourceList: List<SourceImageEntity>)
 }
