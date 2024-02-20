@@ -38,10 +38,11 @@ class SourceArticlesFragment : Fragment() {
         binding = FragmentArticlesListBinding.inflate(inflater, container, false)
         viewModel = SourceArticlesViewModel(
             (activity?.application as ArticlesApp).appComponent.getGetSourceArticlesListUseCase(),
-            (activity?.application as ArticlesApp).appComponent.getRouter()
+            (activity?.application as ArticlesApp).appComponent.getRouter(),
+            source
         )
 
-        viewModel.loadFirstPage(source, PAGE_START)
+        viewModel.loadFirstPage(PAGE_START)
 
         val linearLayoutManager = LinearLayoutManager(
             requireContext(),
@@ -54,7 +55,11 @@ class SourceArticlesFragment : Fragment() {
 
         viewModel.data.observe(viewLifecycleOwner) {
             adapter.submitList(it)
-            onFirstPageLoaded(it)
+            if (currentPage == PAGE_START) {
+                onFirstPageLoaded(it)
+            } else {
+                onNextPageLoaded(it)
+            }
         }
 
         val dividerItemDecoration = DividerItemDecoration(
@@ -69,7 +74,7 @@ class SourceArticlesFragment : Fragment() {
         return binding.root
     }
 
-    fun onFirstPageLoaded(articles: List<ArticleItem>) {
+    private fun onFirstPageLoaded(articles: List<ArticleItem>) {
         adapter.setList(articles)
         if (currentPage <= TOTAL_PAGES) {
             adapter.showLoading()
@@ -78,7 +83,7 @@ class SourceArticlesFragment : Fragment() {
         }
     }
 
-    fun onNextPageLoaded(articles: List<ArticleItem>) {
+    private fun onNextPageLoaded(articles: List<ArticleItem>) {
         adapter.hideLoading()
         isNextPageLoading = false
         adapter.addAll(articles)
@@ -97,7 +102,7 @@ class SourceArticlesFragment : Fragment() {
             override fun loadMoreItems() {
                 isNextPageLoading = true
                 currentPage += 1
-//                viewModel.loadNextPage(currentPage)
+                viewModel.loadNextPage(currentPage)
             }
 
             override fun isLastPage(): Boolean {

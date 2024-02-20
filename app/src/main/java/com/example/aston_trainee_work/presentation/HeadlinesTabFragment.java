@@ -41,12 +41,10 @@ public class HeadlinesTabFragment extends MvpAppCompatFragment implements Headli
     @ProvidePresenter
     HeadlinesTabPresenter providePresenter() {
         GetHeadlinesArticlesListUseCase useCase =
-                ((ArticlesApp) getActivity().getApplication()).getAppComponent()
-                        .getGetHeadlinesArticlesListUseCase();
+                ArticlesApp.INSTANCE.getAppComponent().getGetHeadlinesArticlesListUseCase();
         SourceConverter sourceConverter =
-                ((ArticlesApp) getActivity().getApplication()).getAppComponent()
-                        .getSourceConverter();
-        Router router = ((ArticlesApp) getActivity().getApplication()).getAppComponent().getRouter();
+                ArticlesApp.INSTANCE.getAppComponent().getSourceConverter();
+        Router router = ArticlesApp.INSTANCE.getAppComponent().getRouter();
         return new HeadlinesTabPresenter(router, useCase, sourceConverter, category);
     }
 

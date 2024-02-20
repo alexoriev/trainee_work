@@ -5,7 +5,7 @@ import java.io.Serializable
 data class ArticleItem(
     val source: ArticleSource,
     val author: String?,
-    val title: String,
+    val title: String?,
     val description: String?,
     val url: String,
     val urlToImage: String?,

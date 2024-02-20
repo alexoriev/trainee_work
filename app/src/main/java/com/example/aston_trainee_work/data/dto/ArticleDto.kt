@@ -6,7 +6,7 @@ import com.example.aston_trainee_work.domain.ArticleSource
 data class ArticleDto(
     val source: ArticleSourceDto,
     val author: String?,
-    val title: String,
+    val title: String?,
     val description: String?,
     val url: String,
     val urlToImage: String?,

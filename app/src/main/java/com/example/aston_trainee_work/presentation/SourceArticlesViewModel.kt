@@ -12,7 +12,8 @@ import kotlinx.coroutines.launch
 
 class SourceArticlesViewModel(
     private val getSourceArticlesListUseCase: GetSourceArticlesListUseCase,
-    private val router: Router
+    private val router: Router,
+    private val source: SourceItem
 ): ViewModel() {
     val data = MutableLiveData<List<ArticleItem>>()
 
@@ -20,9 +21,16 @@ class SourceArticlesViewModel(
         router.navigateTo(articleProfile(articleItem))
     }
 
-    fun loadFirstPage(source: SourceItem, page: Int) {
+    fun loadFirstPage(page: Int) {
         viewModelScope.launch {
             data.value = getSourceArticlesListUseCase.getSourceArticlesList(source, page)
+        }
+    }
+
+    fun loadNextPage(page: Int) {
+        viewModelScope.launch {
+            val nextPageData = getSourceArticlesListUseCase.getSourceArticlesList(source, page)
+            data.value = data.value?.plus(nextPageData)
         }
     }
 }
