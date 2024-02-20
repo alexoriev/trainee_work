@@ -13,44 +13,45 @@ import com.example.aston_trainee_work.domain.ArticleItem
 
 class SavedFragment : Fragment() {
     private lateinit var binding: FragmentArticlesListBinding
-//    private lateinit var viewModel: SavedArticlesViewModel
+    private lateinit var viewModel: SavedViewModel
     private lateinit var adapter: ArticlesAdapter
 
-//    override fun onCreateView(
-//        inflater: LayoutInflater, container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View {
-//        (activity as MainActivity).apply {
-//            setActionBarTitle("Saved")
-//            showActionBar()
-//        }.showActionBar()
-//
-//        binding = FragmentArticlesListBinding.inflate(inflater, container, false)
-//
-//        viewModel = SavedArticlesViewModel(
-//            (activity?.application as ArticlesApp).appComponent.getGetSourceArticlesListUseCase(),
-//            (activity?.application as ArticlesApp).appComponent.getRouter(),
-//        )
-//
-//        val linearLayoutManager = LinearLayoutManager(
-//            requireContext(),
-//            LinearLayoutManager.VERTICAL,
-//            false
-//        )
-//
-//        adapter = ArticlesAdapter { articleItem: ArticleItem ->
-//            viewModel.goToArticleProfile(articleItem)
-//        }
-//
-//        val dividerItemDecoration = DividerItemDecoration(
-//            binding.articlesRv.context,
-//            DividerItemDecoration.VERTICAL
-//        )
-//        binding.articlesRv.addItemDecoration(dividerItemDecoration)
-//        binding.articlesRv.layoutManager = linearLayoutManager
-//        binding.articlesRv.adapter = adapter
-//
-//        return binding.root
-//    }
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        (activity as MainActivity).apply {
+            setActionBarTitle("Saved")
+            showActionBar()
+        }.showActionBar()
 
+        binding = FragmentArticlesListBinding.inflate(inflater, container, false)
+
+        viewModel = SavedViewModel(
+            (activity?.application as ArticlesApp).appComponent.getGetSavedArticlesListUseCase(),
+            (activity?.application as ArticlesApp).appComponent.getRouter()
+        )
+
+        val linearLayoutManager = LinearLayoutManager(
+            requireContext(),
+            LinearLayoutManager.VERTICAL,
+            false
+        )
+
+        adapter = ArticlesAdapter { articleItem: ArticleItem ->
+            viewModel.goToArticleProfile(articleItem)
+        }
+
+        val dividerItemDecoration = DividerItemDecoration(
+            binding.articlesRv.context,
+            DividerItemDecoration.VERTICAL
+        )
+        binding.articlesRv.addItemDecoration(dividerItemDecoration)
+        binding.articlesRv.layoutManager = linearLayoutManager
+        binding.articlesRv.adapter = adapter
+
+        adapter.setList(viewModel.getSavedArticlesList())
+
+        return binding.root
+    }
 }

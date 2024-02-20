@@ -1,0 +1,73 @@
+package com.example.aston_trainee_work.data.db
+
+import android.os.Build
+import androidx.annotation.RequiresApi
+import com.example.aston_trainee_work.domain.ArticleItem
+import com.example.aston_trainee_work.domain.ArticleSource
+import com.example.aston_trainee_work.domain.SavedArticleRepository
+import com.example.aston_trainee_work.domain.SourceImageRepository
+import java.time.LocalDateTime
+import javax.inject.Inject
+
+class SavedArticleRepositoryImpl @Inject constructor(
+    private val savedArticleDao: SavedArticleDao,
+    private val sourceImageRepository: SourceImageRepository
+) : SavedArticleRepository {
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun insert(articleItem: ArticleItem) {
+        val source = ArticleSourceEmbeddable(articleItem.source.id, articleItem.source.name)
+        savedArticleDao.insert(
+            SavedArticleEntity(
+                source,
+                articleItem.author,
+                articleItem.title,
+                articleItem.description,
+                articleItem.url,
+                articleItem.urlToImage,
+                articleItem.publishedAt,
+                articleItem.content,
+                LocalDateTime.now()
+            ))
+    }
+
+    override fun getAll(): List<ArticleItem> {
+        return savedArticleDao.getAll().map {
+            var sourceImage: Int? = null
+            if (it.source.id != null) {
+                sourceImage = sourceImageRepository.getImageResourceIdBySourceId(it.source.id)
+            }
+            val source = ArticleSource(it.source.id, it.source.id, sourceImage)
+            ArticleItem(
+                source,
+                it.author,
+                it.title,
+                it.description,
+                it.url,
+                it.urlToImage,
+                it.publishedAt,
+                it.content
+            )
+        }
+    }
+
+    override fun getByUrl(url: String): List<ArticleItem> {
+        return savedArticleDao.getByUrl(url).map {
+            var sourceImage: Int? = null
+            if (it.source.id != null) {
+                sourceImage = sourceImageRepository.getImageResourceIdBySourceId(it.source.id)
+            }
+            val source = ArticleSource(it.source.id, it.source.id, sourceImage)
+            ArticleItem(
+                source,
+                it.author,
+                it.title,
+                it.description,
+                it.url,
+                it.urlToImage,
+                it.publishedAt,
+                it.content
+            )
+        }
+    }
+}

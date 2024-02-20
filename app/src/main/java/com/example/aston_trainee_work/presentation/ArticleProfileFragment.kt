@@ -30,7 +30,10 @@ class ArticleProfileFragment : Fragment() {
         val binding = FragmentArticleProfileBinding.inflate(inflater, container, false)
         val articleItem = arguments?.getSerializable("article") as ArticleItem
         viewModel = ArticleProfileViewModel(
-            (activity?.application as ArticlesApp).appComponent.getRouter()
+            (activity?.application as ArticlesApp).appComponent.getRouter(),
+            (activity?.application as ArticlesApp).appComponent.getSaveArticleUseCase(),
+            (activity?.application as ArticlesApp).appComponent.getIsSavedArticleUseCase(),
+            articleItem
         )
 
         binding.apply {
@@ -57,8 +60,14 @@ class ArticleProfileFragment : Fragment() {
                 viewModel.onBackPressed()
             }
 
-            saveButton.setOnClickListener {
-
+            if (!viewModel.isSavedArticle()) {
+                saveButton.setImageResource(R.drawable.save)
+                saveButton.setOnClickListener {
+                    viewModel.saveArticle()
+                    saveButton.setImageResource(R.drawable.saved)
+                }
+            } else {
+                saveButton.setImageResource(R.drawable.saved)
             }
         }
 

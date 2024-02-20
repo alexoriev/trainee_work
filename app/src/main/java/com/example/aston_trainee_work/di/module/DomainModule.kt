@@ -1,6 +1,8 @@
 package com.example.aston_trainee_work.di.module
 
-import com.example.aston_trainee_work.data.db.SourceImageRepository
+import com.example.aston_trainee_work.domain.SavedArticleRepository
+import com.example.aston_trainee_work.data.db.SavedArticleRepositoryImpl
+import com.example.aston_trainee_work.domain.SourceImageRepository
 import com.example.aston_trainee_work.data.db.SourceImageRepositoryImpl
 import com.example.aston_trainee_work.data.network.HeadlinesArticlesRepositoryImpl
 import com.example.aston_trainee_work.data.network.SourceArticlesRepositoryImpl
@@ -36,6 +38,12 @@ class DomainModule {
     @Provides
     @Singleton
     fun provideSourceImageRepository(impl: SourceImageRepositoryImpl): SourceImageRepository {
+        return impl
+    }
+
+    @Provides
+    @Singleton
+    fun provideSavedArticleRepository(impl: SavedArticleRepositoryImpl): SavedArticleRepository {
         return impl
     }
 }

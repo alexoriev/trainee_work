@@ -10,9 +10,10 @@ import com.example.aston_trainee_work.data.api.HeadlinesArticlesApiService
 import com.example.aston_trainee_work.data.api.SourceArticlesApiService
 import com.example.aston_trainee_work.data.api.SourcesApiService
 import com.example.aston_trainee_work.data.db.AppDb
-import com.example.aston_trainee_work.data.db.SourceDao
+import com.example.aston_trainee_work.data.db.SavedArticleDao
+import com.example.aston_trainee_work.data.db.SourceImageDao
 import com.example.aston_trainee_work.data.db.SourceImageEntity
-import com.example.aston_trainee_work.data.db.SourceImageRepository
+import com.example.aston_trainee_work.domain.SourceImageRepository
 import com.example.aston_trainee_work.utils.SourceConverter
 import dagger.Module
 import dagger.Provides
@@ -66,7 +67,7 @@ class DataModule(val app: Application) {
 
     @Singleton
     @Provides
-    fun provideDb(sourceProvider: Provider<SourceDao>): AppDb {
+    fun provideDb(sourceProvider: Provider<SourceImageDao>): AppDb {
         return Room.databaseBuilder(app, AppDb::class.java, "app.db")
             .allowMainThreadQueries()
             .fallbackToDestructiveMigration()
@@ -129,5 +130,11 @@ class DataModule(val app: Application) {
     @Provides
     fun provideSourceDao(
         appDb: AppDb
-    ): SourceDao = appDb.sourceDao()
+    ): SourceImageDao = appDb.sourceImageDao()
+
+    @Singleton
+    @Provides
+    fun provideSavedArticlesDao(
+        appDb: AppDb
+    ): SavedArticleDao = appDb.savedArticleDao()
 }

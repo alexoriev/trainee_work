@@ -1,6 +1,6 @@
 package com.example.aston_trainee_work.utils
 
-import com.example.aston_trainee_work.data.db.SourceImageRepository
+import com.example.aston_trainee_work.domain.SourceImageRepository
 import com.example.aston_trainee_work.data.dto.ArticleSourceDto
 import com.example.aston_trainee_work.data.dto.SourceDto
 import com.example.aston_trainee_work.domain.ArticleSource
@@ -12,7 +12,7 @@ class SourceConverter @Inject constructor(
 ) {
     fun convertArticleSource(articleSource: ArticleSourceDto): ArticleSource {
         return if (articleSource.id != null) {
-            val imageSourceId = sourceImageRepository.getImageSourceById(articleSource.id)
+            val imageSourceId = sourceImageRepository.getImageResourceIdBySourceId(articleSource.id)
            ArticleSource(articleSource.id, articleSource.name, imageSourceId)
         } else {
             ArticleSource(articleSource.id, articleSource.name, null)
@@ -20,7 +20,7 @@ class SourceConverter @Inject constructor(
     }
 
     fun convertSource(sourceDto: SourceDto): SourceItem {
-        val imageSourceId = sourceImageRepository.getImageSourceById(sourceDto.id)
+        val imageSourceId = sourceImageRepository.getImageResourceIdBySourceId(sourceDto.id)
         return SourceItem(sourceDto.id, sourceDto.name, sourceDto.country, sourceDto.category, imageSourceId)
     }
 }
