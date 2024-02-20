@@ -54,12 +54,12 @@ class SourceArticlesFragment : Fragment() {
         }
 
         viewModel.data.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
             if (currentPage == PAGE_START) {
                 onFirstPageLoaded(it)
             } else {
                 onNextPageLoaded(it)
             }
+            adapter.submitList(it)
         }
 
         val dividerItemDecoration = DividerItemDecoration(

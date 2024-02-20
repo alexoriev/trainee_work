@@ -56,6 +56,10 @@ class ArticleProfileFragment : Fragment() {
             backButton.setOnClickListener {
                 viewModel.onBackPressed()
             }
+
+            saveButton.setOnClickListener {
+
+            }
         }
 
         return binding.root
