@@ -7,4 +7,6 @@ interface SavedArticleRepository {
     fun getAll(): List<ArticleItem>
 
     fun getByUrl(url: String): List<ArticleItem>
+
+    fun deleteOld()
 }

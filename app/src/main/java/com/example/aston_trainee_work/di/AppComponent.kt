@@ -8,6 +8,7 @@ import com.example.aston_trainee_work.domain.GetSavedArticlesListUseCase
 import com.example.aston_trainee_work.domain.GetSourceArticlesListUseCase
 import com.example.aston_trainee_work.domain.GetSourcesListUseCase
 import com.example.aston_trainee_work.domain.IsSavedArticleUseCase
+import com.example.aston_trainee_work.domain.DeleteOldSavedArticlesUseCase
 import com.example.aston_trainee_work.domain.SaveArticleUseCase
 import com.example.aston_trainee_work.presentation.ArticleProfileViewModel
 import com.example.aston_trainee_work.presentation.HeadlinesFragment
@@ -27,6 +28,7 @@ interface AppComponent {
     fun getIsSavedArticleUseCase(): IsSavedArticleUseCase
     fun getSourceConverter(): SourceConverter
     fun getGetSavedArticlesListUseCase(): GetSavedArticlesListUseCase
+    fun getDeleteOldSavedArticlesUseCase(): DeleteOldSavedArticlesUseCase
     fun getRouter(): Router
     fun inject(activity: MainActivity)
     fun inject(fragment: HeadlinesFragment)

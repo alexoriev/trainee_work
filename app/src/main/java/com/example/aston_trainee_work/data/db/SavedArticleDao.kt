@@ -13,6 +13,9 @@ interface SavedArticleDao {
     @Query("SELECT * FROM SavedArticleEntity")
     fun getAll(): List<SavedArticleEntity>
 
-    @Query("SELECT * FROM SavedArticleEntity  WHERE url = :url")
+    @Query("SELECT * FROM SavedArticleEntity WHERE url = :url")
     fun getByUrl(url: String): List<SavedArticleEntity>
+
+    @Query("DELETE FROM SavedArticleEntity WHERE url in (:urlList)")
+    fun deleteByUrls(urlList: List<String>)
 }

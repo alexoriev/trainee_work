@@ -2,6 +2,7 @@ package com.example.aston_trainee_work.data.db
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import com.example.aston_trainee_work.BuildConfig
 import com.example.aston_trainee_work.domain.ArticleItem
 import com.example.aston_trainee_work.domain.ArticleSource
 import com.example.aston_trainee_work.domain.SavedArticleRepository
@@ -28,7 +29,8 @@ class SavedArticleRepositoryImpl @Inject constructor(
                 articleItem.publishedAt,
                 articleItem.content,
                 LocalDateTime.now()
-            ))
+            )
+        )
     }
 
     override fun getAll(): List<ArticleItem> {
@@ -69,5 +71,18 @@ class SavedArticleRepositoryImpl @Inject constructor(
                 it.content
             )
         }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun deleteOld() {
+        val twoWeeksAgo = LocalDateTime.now().minusDays(BuildConfig.TWO_WEEKS)
+        val savedArticles = savedArticleDao.getAll()
+        val urlsToDelete = savedArticles
+            .filter {
+                it.savedAt.isBefore(twoWeeksAgo)
+            }.map {
+                it.url
+            }
+        savedArticleDao.deleteByUrls(urlsToDelete)
     }
 }

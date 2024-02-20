@@ -29,6 +29,7 @@ class SavedFragment : Fragment() {
 
         viewModel = SavedViewModel(
             (activity?.application as ArticlesApp).appComponent.getGetSavedArticlesListUseCase(),
+            (activity?.application as ArticlesApp).appComponent.getDeleteOldSavedArticlesUseCase(),
             (activity?.application as ArticlesApp).appComponent.getRouter()
         )
 

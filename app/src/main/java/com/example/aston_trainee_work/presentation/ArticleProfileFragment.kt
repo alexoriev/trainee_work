@@ -16,8 +16,6 @@ import com.example.aston_trainee_work.R
 import com.example.aston_trainee_work.common.ArticlesApp
 import com.example.aston_trainee_work.databinding.FragmentArticleProfileBinding
 import com.example.aston_trainee_work.domain.ArticleItem
-import java.text.SimpleDateFormat
-import java.util.Locale
 
 class ArticleProfileFragment : Fragment() {
     private lateinit var viewModel: ArticleProfileViewModel
@@ -39,7 +37,7 @@ class ArticleProfileFragment : Fragment() {
         binding.apply {
             collapsingToolbar.title = articleItem.title
             articleTitle.text = articleItem.title
-            articleDateTime.text = convertDateTime(articleItem.publishedAt)
+            articleDateTime.text = viewModel.convertDateTime(articleItem.publishedAt)
             articleSource.text = articleItem.source.name
             if (articleItem.content.isNullOrBlank()) {
                 contentNull.visibility = View.VISIBLE
@@ -74,17 +72,9 @@ class ArticleProfileFragment : Fragment() {
         return binding.root
     }
 
-    private fun convertDateTime(publishedAt: String): String? {
-        val fromFormatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ENGLISH)
-        val formatter = SimpleDateFormat("MMM dd, yyyy | KK:mm a", Locale.ENGLISH)
-
-        val publishDateTime = fromFormatter.parse(publishedAt)
-        return publishDateTime?.let { formatter.format(it) }
-    }
-
     private fun getContent(articleItem: ArticleItem): SpannableString {
-        if (articleItem.content!!.contains('.')) {
-            val startSpan = articleItem.content.indexOfLast { c -> c == '.' } + 1
+        if (articleItem.content!!.contains('.') || articleItem.content.contains('…')) {
+            val startSpan = articleItem.content.indexOfLast { c -> c == '.' || c == '…' } + 2
             val spannable = SpannableString(articleItem.content)
             val clickableSpan = object : ClickableSpan() {
                 override fun onClick(widget: View) {
