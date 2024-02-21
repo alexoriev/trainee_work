@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.aston_trainee_work.common.ArticlesApp;
+import com.example.aston_trainee_work.common.Screens;
 import com.example.aston_trainee_work.databinding.FragmentArticlesListBinding;
 import com.example.aston_trainee_work.domain.ArticleItem;
 import com.example.aston_trainee_work.domain.Category;
@@ -56,24 +57,31 @@ public class HeadlinesTabFragment extends MvpAppCompatFragment implements Headli
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentArticlesListBinding.inflate(inflater, container, false);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(
-                requireContext(),
-                LinearLayoutManager.VERTICAL,
-                false);
-        adapter = new ArticlesAdapter(articleItem ->
-                headlinesTabPresenter.goToArticleProfile(articleItem));
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
-                binding.articlesRv.getContext(),
-                DividerItemDecoration.VERTICAL);
-        binding.articlesRv.addItemDecoration(dividerItemDecoration);
-        binding.articlesRv.setLayoutManager(linearLayoutManager);
-        binding.articlesRv.setAdapter(adapter);
 
-        addOnScrollListener(binding.articlesRv, linearLayoutManager);
-        headlinesTabPresenter.loadFirstPage();
+        Router router = ArticlesApp.INSTANCE.getAppComponent().getRouter();
+        if (!((MainActivity)getActivity()).isConnected()) {
+            router.navigateTo(Screens.INSTANCE.noInternet());
+            return null;
+        } else {
+            binding = FragmentArticlesListBinding.inflate(inflater, container, false);
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(
+                    requireContext(),
+                    LinearLayoutManager.VERTICAL,
+                    false);
+            adapter = new ArticlesAdapter(articleItem ->
+                    headlinesTabPresenter.goToArticleProfile(articleItem));
+            DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
+                    binding.articlesRv.getContext(),
+                    DividerItemDecoration.VERTICAL);
+            binding.articlesRv.addItemDecoration(dividerItemDecoration);
+            binding.articlesRv.setLayoutManager(linearLayoutManager);
+            binding.articlesRv.setAdapter(adapter);
 
-        return binding.getRoot();
+            addOnScrollListener(binding.articlesRv, linearLayoutManager);
+            headlinesTabPresenter.loadFirstPage();
+
+            return binding.getRoot();
+        }
     }
 
     @Override

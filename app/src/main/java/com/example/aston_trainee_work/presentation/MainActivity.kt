@@ -1,6 +1,8 @@
 package com.example.aston_trainee_work.presentation
 
+import android.net.ConnectivityManager
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.FragmentActivity
 import com.example.aston_trainee_work.R
@@ -41,6 +43,7 @@ class MainActivity : FragmentActivity() {
 
         val router = ArticlesApp.INSTANCE.appComponent.getRouter()
         router.navigateTo(headlines())
+
 
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
@@ -87,5 +90,18 @@ class MainActivity : FragmentActivity() {
 
     fun showActionBar() {
         binding.appBarLayout.visibility = View.VISIBLE
+    }
+
+    fun isConnected(): Boolean {
+        var connected = false
+        try {
+            val cm = applicationContext.getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
+            val nInfo = cm.activeNetworkInfo
+            connected = nInfo != null && nInfo.isAvailable && nInfo.isConnected
+            return connected
+        } catch (e: Exception) {
+            e.message?.let { Log.e("Connectivity Exception", it) }
+        }
+        return connected
     }
 }

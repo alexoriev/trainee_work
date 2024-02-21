@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.aston_trainee_work.common.ArticlesApp
+import com.example.aston_trainee_work.common.Screens.noInternet
 import com.example.aston_trainee_work.databinding.FragmentSourcesBinding
 import com.example.aston_trainee_work.domain.SourceItem
 
@@ -17,7 +18,7 @@ class SourcesFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         (activity as MainActivity).apply {
             setActionBarTitle("Sources")
             showActionBar()
@@ -26,28 +27,34 @@ class SourcesFragment : Fragment() {
         val getSourcesListUseCase = ArticlesApp.INSTANCE.appComponent.getGetSourcesListUseCase()
         val router = ArticlesApp.INSTANCE.appComponent.getRouter()
 
-        viewModel = SourcesViewModel(getSourcesListUseCase, router)
-        viewModel.getSources()
+        if (!(activity as MainActivity?)!!.isConnected()) {
+            router.navigateTo(noInternet())
+            return null
+        } else {
 
-        binding = FragmentSourcesBinding.inflate(inflater, container, false)
+            viewModel = SourcesViewModel(getSourcesListUseCase, router)
+            viewModel.getSources()
 
-        val adapter = SourcesAdapter(object : OnSourceInteractionListener {
-            override fun onGetArticlesBySource(source: SourceItem) {
-                viewModel.goToSourceArticles(source)
+            binding = FragmentSourcesBinding.inflate(inflater, container, false)
+
+            val adapter = SourcesAdapter(object : OnSourceInteractionListener {
+                override fun onGetArticlesBySource(source: SourceItem) {
+                    viewModel.goToSourceArticles(source)
+                }
+            })
+
+            viewModel.data.observe(viewLifecycleOwner) { sources ->
+                adapter.submitList(sources)
             }
-        })
 
-        viewModel.data.observe(viewLifecycleOwner) { sources ->
-            adapter.submitList(sources)
+            binding.apply {
+                val dividerItemDecoration =
+                    DividerItemDecoration(sourcesRv.context, DividerItemDecoration.VERTICAL)
+                sourcesRv.addItemDecoration(dividerItemDecoration)
+                sourcesRv.adapter = adapter
+            }
+
+            return binding.root
         }
-
-        binding.apply {
-            val dividerItemDecoration =
-                DividerItemDecoration(sourcesRv.context, DividerItemDecoration.VERTICAL)
-            sourcesRv.addItemDecoration(dividerItemDecoration)
-            sourcesRv.adapter = adapter
-        }
-
-        return binding.root
     }
 }

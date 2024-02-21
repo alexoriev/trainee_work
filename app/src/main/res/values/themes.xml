@@ -39,4 +39,8 @@
         <item name="cornerSize">50%</item>
     </style>
 
+    <style name="MyButtonBorder" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="strokeColor">#70787C</item>
+    </style>
+
 </resources>
