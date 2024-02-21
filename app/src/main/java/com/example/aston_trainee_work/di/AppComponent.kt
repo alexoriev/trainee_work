@@ -9,7 +9,10 @@ import com.example.aston_trainee_work.domain.GetSourceArticlesListUseCase
 import com.example.aston_trainee_work.domain.GetSourcesListUseCase
 import com.example.aston_trainee_work.domain.IsSavedArticleUseCase
 import com.example.aston_trainee_work.domain.DeleteOldSavedArticlesUseCase
+import com.example.aston_trainee_work.domain.FilterArticlesUseCase
 import com.example.aston_trainee_work.domain.SaveArticleUseCase
+import com.example.aston_trainee_work.domain.SearchArticlesUseCase
+import com.example.aston_trainee_work.domain.SearchSavedArticlesUseCase
 import com.example.aston_trainee_work.presentation.ArticleProfileViewModel
 import com.example.aston_trainee_work.presentation.HeadlinesFragment
 import com.example.aston_trainee_work.presentation.MainActivity
@@ -29,6 +32,9 @@ interface AppComponent {
     fun getSourceConverter(): SourceConverter
     fun getGetSavedArticlesListUseCase(): GetSavedArticlesListUseCase
     fun getDeleteOldSavedArticlesUseCase(): DeleteOldSavedArticlesUseCase
+    fun getSearchArticlesUseCase(): SearchArticlesUseCase
+    fun getSearchSavedArticlesUseCase(): SearchSavedArticlesUseCase
+    fun getFilterArticlesUseCase(): FilterArticlesUseCase
     fun getRouter(): Router
     fun inject(activity: MainActivity)
     fun inject(fragment: HeadlinesFragment)

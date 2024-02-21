@@ -34,43 +34,15 @@ class SavedArticleRepositoryImpl @Inject constructor(
     }
 
     override fun getAll(): List<ArticleItem> {
-        return savedArticleDao.getAll().map {
-            var sourceImage: Int? = null
-            if (it.source.id != null) {
-                sourceImage = sourceImageRepository.getImageResourceIdBySourceId(it.source.id)
-            }
-            val source = ArticleSource(it.source.id, it.source.name, sourceImage)
-            ArticleItem(
-                source,
-                it.author,
-                it.title,
-                it.description,
-                it.url,
-                it.urlToImage,
-                it.publishedAt,
-                it.content
-            )
-        }
+        return mapToArticlesItemList(savedArticleDao.getAll())
     }
 
     override fun getByUrl(url: String): List<ArticleItem> {
-        return savedArticleDao.getByUrl(url).map {
-            var sourceImage: Int? = null
-            if (it.source.id != null) {
-                sourceImage = sourceImageRepository.getImageResourceIdBySourceId(it.source.id)
-            }
-            val source = ArticleSource(it.source.id, it.source.name, sourceImage)
-            ArticleItem(
-                source,
-                it.author,
-                it.title,
-                it.description,
-                it.url,
-                it.urlToImage,
-                it.publishedAt,
-                it.content
-            )
-        }
+        return mapToArticlesItemList(savedArticleDao.getByUrl(url))
+    }
+
+    override fun getByQuery(query: String): List<ArticleItem> {
+        return mapToArticlesItemList(savedArticleDao.getByQuery("%$query%"))
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -84,5 +56,27 @@ class SavedArticleRepositoryImpl @Inject constructor(
                 it.url
             }
         savedArticleDao.deleteByUrls(urlsToDelete)
+    }
+
+    private fun mapToArticlesItemList(
+        articlesEntitiesList: List<SavedArticleEntity>
+    ): List<ArticleItem> {
+        return articlesEntitiesList.map {
+            var sourceImage: Int? = null
+            if (it.source.id != null) {
+                sourceImage = sourceImageRepository.getImageResourceIdBySourceId(it.source.id)
+            }
+            val source = ArticleSource(it.source.id, it.source.name, sourceImage)
+            ArticleItem(
+                source,
+                it.author,
+                it.title,
+                it.description,
+                it.url,
+                it.urlToImage,
+                it.publishedAt,
+                it.content
+            )
+        }
     }
 }

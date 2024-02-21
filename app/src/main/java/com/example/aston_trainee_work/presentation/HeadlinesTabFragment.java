@@ -16,6 +16,7 @@ import com.example.aston_trainee_work.databinding.FragmentArticlesListBinding;
 import com.example.aston_trainee_work.domain.ArticleItem;
 import com.example.aston_trainee_work.domain.Category;
 import com.example.aston_trainee_work.domain.GetHeadlinesArticlesListUseCase;
+import com.example.aston_trainee_work.utils.InternetConnectionChecker;
 import com.example.aston_trainee_work.utils.SourceConverter;
 import com.github.terrakok.cicerone.Router;
 
@@ -59,7 +60,7 @@ public class HeadlinesTabFragment extends MvpAppCompatFragment implements Headli
                              Bundle savedInstanceState) {
 
         Router router = ArticlesApp.INSTANCE.getAppComponent().getRouter();
-        if (!((MainActivity)getActivity()).isConnected()) {
+        if (!InternetConnectionChecker.Companion.isConnected()) {
             router.navigateTo(Screens.INSTANCE.noInternet());
             return null;
         } else {

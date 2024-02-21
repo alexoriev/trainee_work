@@ -7,6 +7,7 @@ import com.example.aston_trainee_work.domain.ArticleItem;
 import com.example.aston_trainee_work.domain.Category;
 import com.example.aston_trainee_work.domain.GetHeadlinesArticlesListUseCase;
 import com.example.aston_trainee_work.domain.ArticleSource;
+import com.example.aston_trainee_work.utils.InternetConnectionChecker;
 import com.example.aston_trainee_work.utils.SourceConverter;
 import com.github.terrakok.cicerone.Router;
 
@@ -39,41 +40,57 @@ public class HeadlinesTabPresenter extends MvpPresenter<HeadlinesTabView> {
     }
 
     public void loadFirstPage() {
+        if (!InternetConnectionChecker.Companion.isConnected()) {
+            router.navigateTo(Screens.INSTANCE.noInternet());
+            return;
+        }
         Disposable disposable =
                 getHeadlinesArticlesListUseCase.getHeadlinesArticlesList(category, 1)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(headlinesResponse -> {
-                            List<ArticleItem> articles =
-                                    headlinesResponse.getArticles().stream()
-                                            .map(article -> {
-                                                ArticleSource articleSource =
-                                                        sourceConverter.convertArticleSource(
-                                                                article.getSource());
-                                                return article.fromDto(articleSource);
-                                            })
-                                            .collect(toList());
-                            getViewState().onFirstPageLoaded(articles);
-                        });
+                            if (headlinesResponse.getStatus().equals("ok")) {
+                                List<ArticleItem> articles =
+                                        headlinesResponse.getArticles().stream()
+                                                .map(article -> {
+                                                    ArticleSource articleSource =
+                                                            sourceConverter.convertArticleSource(
+                                                                    article.getSource());
+                                                    return article.fromDto(articleSource);
+                                                })
+                                                .collect(toList());
+                                getViewState().onFirstPageLoaded(articles);
+                            } else {
+                                router.navigateTo(Screens.INSTANCE.error());
+                            }
+                        }, error -> router.navigateTo(Screens.INSTANCE.error()));
     }
 
     public void loadNextPage(Integer page) {
+        if (!InternetConnectionChecker.Companion.isConnected()) {
+            router.navigateTo(Screens.INSTANCE.noInternet());
+            return;
+        }
         Disposable disposable =
                 getHeadlinesArticlesListUseCase.getHeadlinesArticlesList(category, page)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(headlinesResponse -> {
-                            List<ArticleItem> articles =
-                                    headlinesResponse.getArticles().stream()
-                                            .map(article -> {
-                                                ArticleSource articleSource =
-                                                        sourceConverter.convertArticleSource(
-                                                                article.getSource());
-                                                return article.fromDto(articleSource);
-                                            })
-                                            .collect(toList());
-                            getViewState().onNextPageLoaded(articles);
-                        });
+                            if (headlinesResponse.getStatus().equals("ok")) {
+                                List<ArticleItem> articles =
+                                        headlinesResponse.getArticles().stream()
+                                                .map(article -> {
+                                                    ArticleSource articleSource =
+                                                            sourceConverter.convertArticleSource(
+                                                                    article.getSource());
+                                                    return article.fromDto(articleSource);
+                                                })
+                                                .collect(toList());
+                                getViewState().onNextPageLoaded(articles);
+                            } else {
+                                router.navigateTo(Screens.INSTANCE.error());
+                            }
+                        }, error -> router.navigateTo(Screens.INSTANCE.error()));
     }
 
     public void goToArticleProfile(ArticleItem articleItem) {

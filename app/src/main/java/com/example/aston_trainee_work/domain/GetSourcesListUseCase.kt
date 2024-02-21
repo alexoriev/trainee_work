@@ -5,7 +5,7 @@ import javax.inject.Inject
 class GetSourcesListUseCase @Inject constructor(
     private val sourcesRepository: SourcesRepository) {
 
-    suspend fun getSourcesList(): List<SourceItem> {
+    suspend fun getSourcesList(): SourceListWrapper {
         return sourcesRepository.getSourcesList()
     }
 }

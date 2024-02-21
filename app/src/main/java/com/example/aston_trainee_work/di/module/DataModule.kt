@@ -7,6 +7,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.aston_trainee_work.BuildConfig
 import com.example.aston_trainee_work.R
 import com.example.aston_trainee_work.data.api.HeadlinesArticlesApiService
+import com.example.aston_trainee_work.data.api.SearchArticlesApiService
 import com.example.aston_trainee_work.data.api.SourceArticlesApiService
 import com.example.aston_trainee_work.data.api.SourcesApiService
 import com.example.aston_trainee_work.data.db.AppDb
@@ -56,6 +57,12 @@ class DataModule(val app: Application) {
     fun provideSourceArticlesApiService(
         retrofit: Retrofit,
     ): SourceArticlesApiService = retrofit.create()
+
+    @Provides
+    @Singleton
+    fun provideSearchArticlesApiService(
+        retrofit: Retrofit
+    ): SearchArticlesApiService = retrofit.create()
 
     @Provides
     @Singleton

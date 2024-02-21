@@ -4,6 +4,7 @@ import com.example.aston_trainee_work.domain.ArticleItem
 import com.example.aston_trainee_work.domain.Category
 import com.example.aston_trainee_work.domain.SourceItem
 import com.example.aston_trainee_work.presentation.ArticleProfileFragment
+import com.example.aston_trainee_work.presentation.ErrorFragment
 import com.example.aston_trainee_work.presentation.HeadlinesFragment
 import com.example.aston_trainee_work.presentation.HeadlinesTabFragment
 import com.example.aston_trainee_work.presentation.NoInternetFragment
@@ -17,6 +18,7 @@ object Screens {
     fun saved() = FragmentScreen { SavedFragment() }
     fun sources() = FragmentScreen { SourcesFragment() }
     fun noInternet() = FragmentScreen { NoInternetFragment() }
+    fun error() = FragmentScreen { ErrorFragment()}
 
     fun headlinesGeneralTab() = FragmentScreen { HeadlinesTabFragment(Category.GENERAL) }
     fun headlinesBusinessTab() = FragmentScreen { HeadlinesTabFragment(Category.BUSINESS) }

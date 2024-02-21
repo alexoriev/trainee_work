@@ -28,14 +28,14 @@ android {
             )
             manifestPlaceholders["usesCleartextTraffic"] = false
             buildConfigField("String", "BASE_URL", "\"https://newsapi.org/v2/\"")
-            buildConfigField("String", "API_KEY", "\"feec2490ff9d48c68088ef18f0ae4316\"")
+            buildConfigField("String", "API_KEY", "\"90db65ef652f461fa0871930eb104e37\"")
             buildConfigField("String", "PAGE_SIZE", "\"20\"")
             buildConfigField("Long", "TWO_WEEKS", "14L")
         }
         debug {
             manifestPlaceholders["usesCleartextTraffic"] = true
             buildConfigField("String", "BASE_URL", "\"https://newsapi.org/v2/\"")
-            buildConfigField("String", "API_KEY", "\"feec2490ff9d48c68088ef18f0ae4316\"")
+            buildConfigField("String", "API_KEY", "\"90db65ef652f461fa0871930eb104e37\"")
             buildConfigField("String", "PAGE_SIZE", "\"20\"")
             buildConfigField("Long", "TWO_WEEKS", "14L")
         }

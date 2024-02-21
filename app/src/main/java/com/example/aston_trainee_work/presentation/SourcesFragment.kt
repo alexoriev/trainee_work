@@ -10,6 +10,7 @@ import com.example.aston_trainee_work.common.ArticlesApp
 import com.example.aston_trainee_work.common.Screens.noInternet
 import com.example.aston_trainee_work.databinding.FragmentSourcesBinding
 import com.example.aston_trainee_work.domain.SourceItem
+import com.example.aston_trainee_work.utils.InternetConnectionChecker
 
 class SourcesFragment : Fragment() {
     private lateinit var viewModel: SourcesViewModel
@@ -27,7 +28,7 @@ class SourcesFragment : Fragment() {
         val getSourcesListUseCase = ArticlesApp.INSTANCE.appComponent.getGetSourcesListUseCase()
         val router = ArticlesApp.INSTANCE.appComponent.getRouter()
 
-        if (!(activity as MainActivity?)!!.isConnected()) {
+        if (!InternetConnectionChecker.isConnected()) {
             router.navigateTo(noInternet())
             return null
         } else {
