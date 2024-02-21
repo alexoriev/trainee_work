@@ -18,11 +18,48 @@
             android:layout_height="wrap_content"
             android:background="#009EBD"
             android:minHeight="?attr/actionBarSize"
-            app:titleCentered="true"
-            app:titleTextColor="#FBFCFE"
             app:title="News APP"
+            app:titleCentered="true"
             app:titleTextAppearance="@style/title_text"
-            app:menu="@menu/top_app_bar" />
+            app:titleTextColor="#FBFCFE">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="end">
+
+                <androidx.appcompat.widget.SearchView
+                    android:id="@+id/search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="#009EBD"
+                    app:actionViewClass="androidx.appcompat.widget.SearchView"
+                    app:closeIcon="@drawable/ic_close"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/filter"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:queryBackground="@android:color/transparent"
+                    app:searchHintIcon="@null"
+                    app:searchIcon="@drawable/ic_search"
+                    app:showAsAction="ifRoom" />
+
+                <ImageView
+                    android:id="@+id/filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:clickable="true"
+                    android:contentDescription="@string/filter"
+                    android:focusable="true"
+                    android:paddingHorizontal="16dp"
+                    android:src="@drawable/ic_filter"
+                    android:title="@string/filter"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.appbar.MaterialToolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
 

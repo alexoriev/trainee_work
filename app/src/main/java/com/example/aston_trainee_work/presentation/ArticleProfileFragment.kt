@@ -73,38 +73,25 @@ class ArticleProfileFragment : Fragment() {
     }
 
     private fun getContent(articleItem: ArticleItem): SpannableString {
-        if (articleItem.content!!.contains('.') || articleItem.content.contains('…')) {
-            val startSpan = articleItem.content.indexOfLast { c -> c == '.' || c == '…' } + 2
-            val spannable = SpannableString(articleItem.content)
-            val clickableSpan = object : ClickableSpan() {
-                override fun onClick(widget: View) {
-                    val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(articleItem.url))
-                    startActivity(browserIntent)
-                }
+        val clickableSpan = object : ClickableSpan() {
+            override fun onClick(widget: View) {
+                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(articleItem.url))
+                startActivity(browserIntent)
             }
-            spannable.setSpan(
-                clickableSpan,
-                startSpan,
-                spannable.length,
-                Spannable.SPAN_INCLUSIVE_EXCLUSIVE
-            )
-            return spannable
-        } else {
-            val spannable = SpannableString(articleItem.content)
-            val clickableSpan = object : ClickableSpan() {
-                override fun onClick(widget: View) {
-                    val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(articleItem.url))
-                    startActivity(browserIntent)
-                }
-            }
-            spannable.setSpan(
-                clickableSpan,
-                0,
-                spannable.length,
-                Spannable.SPAN_INCLUSIVE_EXCLUSIVE
-            )
-            return spannable
         }
+        val spannable = SpannableString(articleItem.content)
+        var spanStart = 0
+        val regex = ".|…".toRegex()
+        if (articleItem.content!!.contains(regex)) {
+            spanStart = articleItem.content.indexOfLast { c -> c == '.' || c == '…' } + 1
+        }
+        spannable.setSpan(
+            clickableSpan,
+            spanStart,
+            spannable.length,
+            Spannable.SPAN_INCLUSIVE_EXCLUSIVE
+        )
+        return spannable
     }
 
     companion object {
