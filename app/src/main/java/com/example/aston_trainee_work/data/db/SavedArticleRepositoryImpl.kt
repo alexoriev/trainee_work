@@ -39,7 +39,7 @@ class SavedArticleRepositoryImpl @Inject constructor(
             if (it.source.id != null) {
                 sourceImage = sourceImageRepository.getImageResourceIdBySourceId(it.source.id)
             }
-            val source = ArticleSource(it.source.id, it.source.id, sourceImage)
+            val source = ArticleSource(it.source.id, it.source.name, sourceImage)
             ArticleItem(
                 source,
                 it.author,
@@ -59,7 +59,7 @@ class SavedArticleRepositoryImpl @Inject constructor(
             if (it.source.id != null) {
                 sourceImage = sourceImageRepository.getImageResourceIdBySourceId(it.source.id)
             }
-            val source = ArticleSource(it.source.id, it.source.id, sourceImage)
+            val source = ArticleSource(it.source.id, it.source.name, sourceImage)
             ArticleItem(
                 source,
                 it.author,

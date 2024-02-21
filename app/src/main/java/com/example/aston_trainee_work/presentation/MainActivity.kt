@@ -1,13 +1,7 @@
 package com.example.aston_trainee_work.presentation
 
-import android.app.SearchManager
-import android.content.ComponentName
-import android.content.Context
 import android.os.Bundle
-import android.view.Menu
 import android.view.View
-import android.widget.SearchView
-import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.fragment.app.FragmentActivity
 import com.example.aston_trainee_work.R
 import com.example.aston_trainee_work.common.ArticlesApp
@@ -81,29 +75,6 @@ class MainActivity : FragmentActivity() {
     override fun onPause() {
         navigatorHolder.removeNavigator()
         super.onPause()
-    }
-
-    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.top_app_bar, menu)
-
-        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        val searchView = binding.search
-
-        searchView.setOnQueryTextListener(object : OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                TODO("Not yet implemented")
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                TODO("Not yet implemented")
-            }
-
-        })
-        val component = ComponentName(this, MainActivity::class.java)
-        val searchableInfo = searchManager.getSearchableInfo(component)
-        searchView.setSearchableInfo(searchableInfo)
-
-        return true
     }
 
     fun setActionBarTitle(title: String) {
