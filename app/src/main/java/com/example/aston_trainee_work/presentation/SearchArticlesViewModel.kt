@@ -18,6 +18,10 @@ class SearchArticlesViewModel(
 ): ViewModel() {
     val data = MutableLiveData<List<ArticleItem>>()
 
+    fun goToArticleProfile(articleItem: ArticleItem) {
+        router.navigateTo(Screens.articleProfile(articleItem))
+    }
+
     fun loadFirstPage(query: String, page: Int) {
         if (!InternetConnectionChecker.isConnected()) {
             data.value = searchSavedArticlesUseCase.searchSavedArticles(query)
@@ -27,26 +31,6 @@ class SearchArticlesViewModel(
                     val wrapper = searchArticlesUseCase.searchArticles(query, page)
                     if (wrapper.isSuccessful) {
                         data.value = wrapper.articles
-                    } else {
-                        router.navigateTo(Screens.error())
-                    }
-                } catch (e: Exception) {
-                    router.navigateTo(Screens.error())
-                }
-            }
-        }
-    }
-
-    fun loadNextPage(query: String, page: Int) {
-        if (!InternetConnectionChecker.isConnected()) {
-            data.value = searchSavedArticlesUseCase.searchSavedArticles(query)
-            return
-        } else {
-            viewModelScope.launch {
-                try {
-                    val wrapper = searchArticlesUseCase.searchArticles(query, page)
-                    if (wrapper.isSuccessful) {
-                        data.value = data.value?.plus(wrapper.articles)
                     } else {
                         router.navigateTo(Screens.error())
                     }

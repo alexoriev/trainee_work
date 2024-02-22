@@ -15,6 +15,9 @@ class FiltersFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        (activity as MainActivity).apply {
+            hideActionBar()
+        }
         binding = FragmentFiltersBinding.inflate(inflater, container, false)
 
         binding.toggleButton.addOnButtonCheckedListener { toggleButton, checkedId, isChecked ->

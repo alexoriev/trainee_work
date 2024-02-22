@@ -4,11 +4,14 @@ import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.FragmentActivity
 import com.example.aston_trainee_work.R
 import com.example.aston_trainee_work.common.ArticlesApp
+import com.example.aston_trainee_work.common.Screens.filters
 import com.example.aston_trainee_work.common.Screens.headlines
 import com.example.aston_trainee_work.common.Screens.saved
+import com.example.aston_trainee_work.common.Screens.searchArticles
 import com.example.aston_trainee_work.common.Screens.sources
 import com.example.aston_trainee_work.databinding.ActivityMainBinding
 import com.github.terrakok.cicerone.Command
@@ -44,7 +47,6 @@ class MainActivity : FragmentActivity() {
         val router = ArticlesApp.INSTANCE.appComponent.getRouter()
         router.navigateTo(headlines())
 
-
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.headlines -> router.navigateTo(headlines())
@@ -57,6 +59,7 @@ class MainActivity : FragmentActivity() {
         binding.search.setOnCloseListener {
             binding.filter.visibility = View.VISIBLE
             binding.topAppBar.navigationIcon = null
+            router.exit()
             false
         }
 
@@ -65,8 +68,35 @@ class MainActivity : FragmentActivity() {
             binding.topAppBar.navigationIcon = getDrawable(R.drawable.ic_arrow_back)
         }
 
+        var searchStarted = false
+        binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (searchStarted) {
+                    router.replaceScreen(searchArticles(query))
+                } else {
+                    router.navigateTo(searchArticles(query))
+                }
+                searchStarted = true
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (searchStarted) {
+                    router.replaceScreen(searchArticles(newText))
+                } else {
+                    router.navigateTo(searchArticles(newText))
+                }
+                searchStarted = true
+                return true
+            }
+        })
+
         binding.topAppBar.setNavigationOnClickListener {
             binding.search.isIconified = true
+        }
+
+        binding.filter.setOnClickListener {
+            router.navigateTo(filters())
         }
     }
 
@@ -95,7 +125,8 @@ class MainActivity : FragmentActivity() {
     fun isConnected(): Boolean {
         var connected = false
         try {
-            val cm = applicationContext.getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
+            val cm =
+                applicationContext.getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
             val nInfo = cm.activeNetworkInfo
             connected = nInfo != null && nInfo.isAvailable && nInfo.isConnected
             return connected
