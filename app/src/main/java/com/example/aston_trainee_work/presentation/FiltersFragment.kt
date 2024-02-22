@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.aston_trainee_work.databinding.FragmentFiltersBinding
+import com.google.android.material.datepicker.MaterialDatePicker
 
 
 class FiltersFragment : Fragment() {
@@ -22,6 +23,13 @@ class FiltersFragment : Fragment() {
 
         binding.toggleButton.addOnButtonCheckedListener { toggleButton, checkedId, isChecked ->
             // Respond to button selection
+        }
+
+        binding.dateTimePickerLl.setOnClickListener {
+            val datePicker =
+                MaterialDatePicker.Builder.datePicker()
+                    .build()
+            fragmentManager?.let { it1 -> datePicker.show(it1, "tag") }
         }
 
         return binding.root
